@@ -31,8 +31,7 @@
             aspect-ratio: 2666 / 1868;
             background: url("background.jpeg") no-repeat center;
             background-size: cover;
-            transition: transform 0.3s ease;
-            transform-origin: 0 0;
+            transition: width 0.3s ease;
         }
 
         .target {
@@ -184,21 +183,16 @@
     }
 
     function updateZoom(scale) {
-        scale = Math.min(Math.max(1, scale), 3); // 1~3배 제한
+        scale = Math.min(Math.max(1, scale), 3);
         currentScale = scale;
         
-        // 가장 가까운 줌 버튼 활성화
         const nearestZoom = Math.round(scale);
         zoomButtons.forEach(btn => {
             btn.classList.toggle('active', parseInt(btn.dataset.zoom) === nearestZoom);
         });
 
-        const rect = container.getBoundingClientRect();
-        const centerX = container.scrollLeft + rect.width / 2;
-        const centerY = container.scrollTop + rect.height / 2;
         
-        background.style.transform = `scale(${scale})`;
-        background.style.transformOrigin = `${centerX}px ${centerY}px`;
+        background.style.width = `min(300vw * ${scale}, 1440 * ${scale}px)`;
         
         updateMinimapViewport();
     }
