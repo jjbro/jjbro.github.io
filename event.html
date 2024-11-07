@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>숨은 그림 찾기</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            touch-action: none; /* 기본 터치 동작 비활성화 */
+        }
+
+        .container {
+            overflow: auto;
+            overscroll-behavior: none;
+            width: min(100vw - 20px, 480px);
+            height: 70svh;
+            margin: 10px auto 0;
+            background: #ddd;
+        }
+
+        .background {
+            position: relative;
+            width: min(300vw, 1440px);
+            aspect-ratio: 2666 / 1868;
+            background: url("background.jpeg") no-repeat center;
+            background-size: cover;
+            transition: transform 0.3s ease;
+            transform-origin: 0 0;
+        }
+
+        .target {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            border:5px solid red
+        }
+        
+        .target.item1 { top: calc(748 / 1868 * 100%); left: calc(76 / 2666 * 100%); width: calc(132 / 2666 * 100%); aspect-ratio: 132 / 154; }
+        .target.item2 { top: calc(885 / 1868 * 100%); left: calc(755 / 2666 * 100%); width: calc(120 / 2666 * 100%); aspect-ratio: 120 / 240; }
+        .target.item3 { top: calc(1200 / 1868 * 100%); left: calc(1200 / 2666 * 100%); width: calc(150 / 2666 * 100%); aspect-ratio: 1 / 1; }
+        .target.item4 { top: calc(500 / 1868 * 100%); left: calc(1500 / 2666 * 100%); width: calc(140 / 2666 * 100%); aspect-ratio: 140 / 160; }
+        .target.item5 { top: calc(300 / 1868 * 100%); left: calc(2000 / 2666 * 100%); width: calc(130 / 2666 * 100%); aspect-ratio: 130 / 150; }
+        .target.item6 { top: calc(1500 / 1868 * 100%); left: calc(400 / 2666 * 100%); width: calc(145 / 2666 * 100%); aspect-ratio: 145 / 165; }
+        .target.item7 { top: calc(1000 / 1868 * 100%); left: calc(1800 / 2666 * 100%); width: calc(125 / 2666 * 100%); aspect-ratio: 125 / 145; }
+        .target.item8 { top: calc(600 / 1868 * 100%); left: calc(2200 / 2666 * 100%); width: calc(135 / 2666 * 100%); aspect-ratio: 135 / 155; }
+        .target.item9 { top: calc(1300 / 1868 * 100%); left: calc(900 / 2666 * 100%); width: calc(128 / 2666 * 100%); aspect-ratio: 128 / 148; }
+        .target.item10 { top: calc(200 / 1868 * 100%); left: calc(1100 / 2666 * 100%); width: calc(142 / 2666 * 100%); aspect-ratio: 142 / 162; }
+
+        .text {
+            padding-top: 10px;
+            text-align: center;
+        }
+
+        .zoom-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .zoom-btn {
+            padding: 8px 16px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .zoom-btn.active {
+            background: #007bff;
+            color: white;
+            border-color: #0056b3;
+        }
+
+        /* 미니맵 스타일 추가 */
+        .minimap {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 200px;
+            height: 140px;
+            border: 2px solid #333;
+            background: rgba(255, 255, 255, 0.9);
+            overflow: hidden;
+        }
+
+        .minimap-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: url("background.jpeg") no-repeat center;
+            background-size: cover;
+        }
+
+        .minimap-viewport {
+            position: absolute;
+            border: 2px solid #007bff;
+            background: rgba(0, 123, 255, 0.2);
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="background">
+        <span class="target item1" data-text="모자"></span>
+        <span class="target item2" data-text="우산"></span>
+        <span class="target item3" data-text="시계"></span>
+        <span class="target item4" data-text="책"></span>
+        <span class="target item5" data-text="안경"></span>
+        <span class="target item6" data-text="가방"></span>
+        <span class="target item7" data-text="신발"></span>
+        <span class="target item8" data-text="장갑"></span>
+        <span class="target item9" data-text="지갑"></span>
+        <span class="target item10" data-text="열쇠"></span>
+    </div>
+</div>
+
+<div class="minimap">
+    <div class="minimap-content">
+        <div class="minimap-viewport"></div>
+    </div>
+</div>
+
+<div class="zoom-controls">
+    <button class="zoom-btn active" data-zoom="1">1x</button>
+    <button class="zoom-btn" data-zoom="2">2x</button>
+    <button class="zoom-btn" data-zoom="3">3x</button>
+</div>
+
+<script>
+    document.querySelectorAll('.target').forEach(target => {
+        target.addEventListener('click', function() {
+            alert(this.dataset.text);
+        });
+    });
+
+    const container = document.querySelector('.container');
+    const background = document.querySelector('.background');
+    const zoomButtons = document.querySelectorAll('.zoom-btn');
+    const minimapViewport = document.querySelector('.minimap-viewport');
+
+    let currentScale = 1;
+    let initialDistance = 0;
+    let initialScale = 1;
+
+    // 미니맵 뷰포트 업데이트 함수
+    function updateMinimapViewport() {
+        const containerRect = container.getBoundingClientRect();
+        const backgroundRect = background.getBoundingClientRect();
+        const minimapContent = document.querySelector('.minimap-content');
+        const minimapRect = minimapContent.getBoundingClientRect();
+
+        const scaleX = minimapRect.width / backgroundRect.width;
+        const scaleY = minimapRect.height / backgroundRect.height;
+
+        const viewportWidth = containerRect.width * scaleX;
+        const viewportHeight = containerRect.height * scaleY;
+        const viewportX = (container.scrollLeft / backgroundRect.width) * minimapRect.width;
+        const viewportY = (container.scrollTop / backgroundRect.height) * minimapRect.height;
+
+        minimapViewport.style.width = `${viewportWidth}px`;
+        minimapViewport.style.height = `${viewportHeight}px`;
+        minimapViewport.style.left = `${viewportX}px`;
+        minimapViewport.style.top = `${viewportY}px`;
+    }
+
+    // 핀치 줌 관련 함수들
+    function getDistance(touches) {
+        return Math.hypot(
+            touches[0].clientX - touches[1].clientX,
+            touches[0].clientY - touches[1].clientY
+        );
+    }
+
+    function updateZoom(scale) {
+        scale = Math.min(Math.max(1, scale), 3); // 1~3배 제한
+        currentScale = scale;
+        
+        // 가장 가까운 줌 버튼 활성화
+        const nearestZoom = Math.round(scale);
+        zoomButtons.forEach(btn => {
+            btn.classList.toggle('active', parseInt(btn.dataset.zoom) === nearestZoom);
+        });
+
+        const rect = container.getBoundingClientRect();
+        const centerX = container.scrollLeft + rect.width / 2;
+        const centerY = container.scrollTop + rect.height / 2;
+        
+        background.style.transform = `scale(${scale})`;
+        background.style.transformOrigin = `${centerX}px ${centerY}px`;
+        
+        updateMinimapViewport();
+    }
+
+    // 터치 이벤트 리스너
+    container.addEventListener('touchstart', e => {
+        if (e.touches.length === 2) {
+            initialDistance = getDistance(e.touches);
+            initialScale = currentScale;
+        }
+    });
+
+    container.addEventListener('touchmove', e => {
+        if (e.touches.length === 2) {
+            e.preventDefault();
+            const currentDistance = getDistance(e.touches);
+            const scale = initialScale * (currentDistance / initialDistance);
+            updateZoom(scale);
+        }
+    });
+
+    // 스크롤 이벤트 리스너
+    container.addEventListener('scroll', updateMinimapViewport);
+
+    // 줌 버튼 이벤트 리스너
+    zoomButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const zoom = parseFloat(this.dataset.zoom);
+            updateZoom(zoom);
+        });
+    });
+
+    // 초기 미니맵 뷰포트 설정
+    updateMinimapViewport();
+</script>
+</body>
+</html>
