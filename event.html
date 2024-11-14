@@ -35,7 +35,7 @@
             transform-origin: 0 0;
         }
 
-        .target { 
+        .target {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -247,17 +247,25 @@
     let startX, startY;
     let startPanX, startPanY;
 
-    // 마우스 이벤트
-    background.addEventListener('mousedown', startDragging);
-    window.addEventListener('mousemove', drag);
-    window.addEventListener('mouseup', stopDragging);
+    // 기존 변수 선언부 아래에 핀치 줌 관련 변수 추가
+    let initialDistance = 0;
+    let initialScale = 1;
 
-    // 터치 이벤트
-    background.addEventListener('touchstart', startDragging);
-    window.addEventListener('touchmove', drag);
-    window.addEventListener('touchend', stopDragging);
-
+    // 터치 이벤트 리스너에 핀치 줌 관련 코드 추가
     function startDragging(e) {
+        if (e.type === 'touchstart' && e.touches.length === 2) {
+            // 핀치 줌 시작
+            e.preventDefault();
+            const touch1 = e.touches[0];
+            const touch2 = e.touches[1];
+            initialDistance = Math.hypot(
+                touch2.clientX - touch1.clientX,
+                touch2.clientY - touch1.clientY
+            );
+            initialScale = currentScale;
+            return;
+        }
+
         isDragging = true;
         if (e.type === 'mousedown') {
             startX = e.clientX;
@@ -268,12 +276,30 @@
         }
         startPanX = currentX;
         startPanY = currentY;
-        
-        // 드래그 시작할 때 커서 스타일 변경
         background.style.cursor = 'grabbing';
     }
 
     function drag(e) {
+        if (e.type === 'touchmove' && e.touches.length === 2) {
+            // 핀치 줌 처리
+            e.preventDefault();
+            const touch1 = e.touches[0];
+            const touch2 = e.touches[1];
+            const currentDistance = Math.hypot(
+                touch2.clientX - touch1.clientX,
+                touch2.clientY - touch1.clientY
+            );
+
+            const scale = (currentDistance / initialDistance) * initialScale;
+            const newZoomIndex = findClosestZoomLevel(scale);
+            
+            if (newZoomIndex !== currentZoomIndex) {
+                currentZoomIndex = newZoomIndex;
+                updateZoom(zoomLevels[currentZoomIndex]);
+            }
+            return;
+        }
+
         if (!isDragging) return;
         
         e.preventDefault();
@@ -375,6 +401,22 @@
     window.addEventListener('load', () => {
         setTimeout(playPanorama, 100); // 약간의 지연을 주어 초기화 완료 후 실행
     });
+
+    // 가장 가까운 줌 레벨을 찾는 함수 추가
+    function findClosestZoomLevel(scale) {
+        let closestIndex = 0;
+        let minDiff = Math.abs(zoomLevels[0] - scale);
+
+        for (let i = 1; i < zoomLevels.length; i++) {
+            const diff = Math.abs(zoomLevels[i] - scale);
+            if (diff < minDiff) {
+                minDiff = diff;
+                closestIndex = i;
+            }
+        }
+
+        return closestIndex;
+    }
 </script>
 </body>
 </html>
