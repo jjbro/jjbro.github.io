@@ -417,6 +417,16 @@
 
         return closestIndex;
     }
+
+    // 마우스 이벤트 리스너 추가
+    background.addEventListener('mousedown', startDragging);
+    window.addEventListener('mousemove', drag);
+    window.addEventListener('mouseup', stopDragging);
+
+    // 터치 이벤트 리스너 추가
+    background.addEventListener('touchstart', startDragging);
+    window.addEventListener('touchmove', drag);
+    window.addEventListener('touchend', stopDragging);
 </script>
 </body>
 </html>
