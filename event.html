@@ -40,7 +40,7 @@
             justify-content: center;
             align-items: center;
             position: absolute;
-            border:5px solid red
+            /* border:5px solid red */
         }
         
         .target.item1 { top: calc(748 / 1868 * 100%); left: calc(76 / 2666 * 100%); width: calc(132 / 2666 * 100%); aspect-ratio: 132 / 154; }
@@ -84,11 +84,11 @@
 
         /* 미니맵 스타일 추가 */
         .minimap {
-            position: fixed;
-            top: 20px;
+            position: absolute;
+            bottom: 20px;
             right: 20px;
-            width: 200px;
-            height: 140px;
+            width: 100px;
+            height: 70px;
             border: 2px solid #333;
             background: rgba(255, 255, 255, 0.9);
             overflow: hidden;
@@ -108,7 +108,114 @@
             background: rgba(0, 123, 255, 0.2);
             pointer-events: none;
         }
+
+        /* 타이머 스타일 추가 */
+        .timer {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #333;
+            border-radius: 4px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* 스와이퍼 관련 스타일 추가 */
+        .target-list {
+            position: fixed;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(100vw - 20px, 480px);
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            border: 2px solid #333;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .swiper-slide.found {
+            color: #ccc;
+            text-decoration: line-through;
+        }
+
+        /* 클릭 효과 관련 스타일 추가 */
+        .target.found::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid #2ecc71;
+            border-radius: 50%;
+            animation: pulse 0.5s ease-out;
+        }
+
+        .click-mark {
+            position: absolute;
+            pointer-events: none;
+            width: 40px;
+            height: 40px;
+            transform: translate(-50%, -50%);
+        }
+
+        .click-mark.wrong::before,
+        .click-mark.wrong::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 4px;
+            background: #e74c3c;
+            border-radius: 2px;
+        }
+
+        .click-mark.wrong::before {
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .click-mark.wrong::after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
     </style>
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body>
 <div class="container">
@@ -124,11 +231,11 @@
         <span class="target item9" data-text="지갑"></span>
         <span class="target item10" data-text="열쇠"></span>
     </div>
-</div>
-
-<div class="minimap">
-    <div class="minimap-content">
-        <div class="minimap-viewport"></div>
+    <div class="timer">00:00</div>
+    <div class="minimap">
+        <div class="minimap-content">
+            <div class="minimap-viewport"></div>
+        </div>
     </div>
 </div>
 
@@ -137,9 +244,33 @@
     <button class="zoom-btn" id="zoomIn">+</button>
 </div>
 
+<div class="target-list">
+    <div class="swiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" data-target="item1">모자</div>
+            <div class="swiper-slide" data-target="item2">우산</div>
+            <div class="swiper-slide" data-target="item3">시계</div>
+            <div class="swiper-slide" data-target="item4">책</div>
+            <div class="swiper-slide" data-target="item5">안경</div>
+            <div class="swiper-slide" data-target="item6">가방</div>
+            <div class="swiper-slide" data-target="item7">신발</div>
+            <div class="swiper-slide" data-target="item8">장갑</div>
+            <div class="swiper-slide" data-target="item9">지갑</div>
+            <div class="swiper-slide" data-target="item10">열쇠</div>
+        </div>
+    </div>
+</div>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
     document.querySelectorAll('.target').forEach(target => {
         target.addEventListener('click', function() {
+            const targetClass = this.classList[1]; // item1, item2, ...
+            const targetSlide = document.querySelector(`.swiper-slide[data-target="${targetClass}"]`);
+            if (targetSlide) {
+                targetSlide.classList.add('found');
+            }
             alert(this.dataset.text);
         });
     });
@@ -198,7 +329,7 @@
         });
     }
 
-    // 줌 버튼 이벤트 리스너 교체
+    // 줌 버튼 이벤 리스너 교체
     document.getElementById('zoomIn').addEventListener('click', () => {
         if (currentZoomIndex < zoomLevels.length - 1) {
             currentZoomIndex++;
@@ -359,16 +490,40 @@
     const panoramaDuration = 3000; // 3초
     const panoramaDistance = -1000; // 이동할 거리 (픽셀)
 
-    // 초기 크기 설정 아래에 파노라마 함수 추가
+    // 타이머 관련 변수 추가
+    const timerElement = document.querySelector('.timer');
+    let startTime;
+    let timerInterval;
+
+    // 타이머 업데이트 함수
+    function updateTimer() {
+        const currentTime = Date.now();
+        const elapsedTime = Math.floor((currentTime - startTime) / 1000); // 초 단위로 변환
+        
+        // 99:59를 초과하면 타이머 정지
+        if (elapsedTime >= 6000) { // 100분 = 6000초
+            clearInterval(timerInterval);
+            return;
+        }
+
+        const minutes = Math.floor(elapsedTime / 60);
+        const seconds = elapsedTime % 60;
+        
+        // 두 자리 숫자로 포맷팅
+        const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        timerElement.textContent = formattedTime;
+    }
+
+    // 초기 크기 설정 아래 파노라마 함수 추가
     function playPanorama() {
         if (isPanoramaPlaying) return;
         isPanoramaPlaying = true;
 
-        const startTime = Date.now();
+        const panoramaStartTime = Date.now();  // 파노라마용 시작 시간
         const startX = 0;
 
         function animate() {
-            const elapsed = Date.now() - startTime;
+            const elapsed = Date.now() - panoramaStartTime;
             const progress = Math.min(elapsed / panoramaDuration, 1);
             
             // easeInOut 효과 적용
@@ -391,6 +546,12 @@
                 requestAnimationFrame(animate);
             } else {
                 isPanoramaPlaying = false;
+                // 파노라마가 끝난 후 이미지 위치 초기화 및 타이머 시작
+                currentX = 0;
+                background.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                updateMinimapViewport();
+                startTime = Date.now();
+                timerInterval = setInterval(updateTimer, 1000);
             }
         }
 
@@ -427,6 +588,55 @@
     background.addEventListener('touchstart', startDragging);
     window.addEventListener('touchmove', drag);
     window.addEventListener('touchend', stopDragging);
+
+    // Swiper 초기화
+    const swiper = new Swiper('.swiper', {
+        slidesPerView: 6,
+        spaceBetween: 20,
+        resistance: true,
+        resistanceRatio: 0,
+        slideToClickedSlide: true
+    });
+
+    // 클릭 이벤트 핸들러 수정
+    background.addEventListener('click', function(e) {
+        // 클릭한 요소가 target 클래스를 가지고 있는지 확인
+        const target = e.target.closest('.target');
+        
+        if (target) {
+            // 숨은 그림을 찾은 경우
+            const targetClass = target.classList[1];
+            const targetSlide = document.querySelector(`.swiper-slide[data-target="${targetClass}"]`);
+            
+            if (!target.classList.contains('found')) {
+                target.classList.add('found');
+                if (targetSlide) {
+                    targetSlide.classList.add('found');
+                }
+            }
+        } else {
+            // 빈 공간을 클릭한 경우
+            const mark = document.createElement('div');
+            mark.className = 'click-mark wrong';
+            mark.style.left = `${e.pageX}px`;
+            mark.style.top = `${e.pageY}px`;
+            mark.style.animation = 'fadeOut 0.5s ease-out forwards';
+            
+            document.body.appendChild(mark);
+            
+            // 0.5초 후 요소 제거
+            setTimeout(() => {
+                mark.remove();
+            }, 500);
+        }
+    });
+
+    // 기존의 target click 이벤트 리스너는 제거
+    // document.querySelectorAll('.target').forEach(target => {
+    //     target.removeEventListener('click', function() {
+    //         alert(this.dataset.text);
+    //     });
+    // });
 </script>
 </body>
 </html>
