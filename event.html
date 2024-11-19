@@ -4,297 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>숨은 그림 찾기</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            overflow: hidden;
-            touch-action: none; /* 기본 터치 동작 비활성화 */
-        }
-
-        .container {
-            overflow: hidden;
-            overscroll-behavior: none;
-            width: min(100vw - 20px, 480px);
-            height: 85svh;
-            margin: 10px auto 0;
-            background: #ddd;
-            position: relative;
-        }
-
-        .background {
-            position: absolute;
-            width: min(300vw, 1440px);
-            aspect-ratio: 2666 / 1868;
-            background: url("background.jpeg") no-repeat center;
-            background-size: cover;
-            transform-origin: 0 0;
-        }
-
-        .target {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            border:5px solid red;
-        }
-        
-        .target.item1 { top: calc(748 / 1868 * 100%); left: calc(76 / 2666 * 100%); width: calc(132 / 2666 * 100%); aspect-ratio: 132 / 154; }
-        .target.item2 { top: calc(885 / 1868 * 100%); left: calc(755 / 2666 * 100%); width: calc(120 / 2666 * 100%); aspect-ratio: 120 / 240; }
-        .target.item3 { top: calc(1200 / 1868 * 100%); left: calc(1200 / 2666 * 100%); width: calc(150 / 2666 * 100%); aspect-ratio: 1 / 1; }
-        .target.item4 { top: calc(500 / 1868 * 100%); left: calc(1500 / 2666 * 100%); width: calc(140 / 2666 * 100%); aspect-ratio: 140 / 160; }
-        .target.item5 { top: calc(300 / 1868 * 100%); left: calc(2000 / 2666 * 100%); width: calc(130 / 2666 * 100%); aspect-ratio: 130 / 150; }
-        .target.item6 { top: calc(1500 / 1868 * 100%); left: calc(400 / 2666 * 100%); width: calc(145 / 2666 * 100%); aspect-ratio: 145 / 165; }
-        .target.item7 { top: calc(1000 / 1868 * 100%); left: calc(1800 / 2666 * 100%); width: calc(125 / 2666 * 100%); aspect-ratio: 125 / 145; }
-        .target.item8 { top: calc(600 / 1868 * 100%); left: calc(2200 / 2666 * 100%); width: calc(135 / 2666 * 100%); aspect-ratio: 135 / 155; }
-        .target.item9 { top: calc(1300 / 1868 * 100%); left: calc(900 / 2666 * 100%); width: calc(128 / 2666 * 100%); aspect-ratio: 128 / 148; }
-        .target.item10 { top: calc(200 / 1868 * 100%); left: calc(1100 / 2666 * 100%); width: calc(142 / 2666 * 100%); aspect-ratio: 142 / 162; }
-
-        .text {
-            padding-top: 10px;
-            text-align: center;
-        }
-
-        .zoom-controls {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-        }
-
-        .zoom-btn {
-            padding: 8px 16px;
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .zoom-btn.active {
-            background: #007bff;
-            color: white;
-            border-color: #0056b3;
-        }
-
-        /* 미니맵 스타일 추가 */
-        .minimap {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            width: 100px;
-            height: 70px;
-            border: 2px solid #333;
-            background: rgba(255, 255, 255, 0.9);
-            overflow: hidden;
-        }
-
-        .minimap-content {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            background: url("background.jpeg") no-repeat center;
-            background-size: cover;
-        }
-
-        .minimap-viewport {
-            position: absolute;
-            border: 2px solid #007bff;
-            background: rgba(0, 123, 255, 0.2);
-            pointer-events: none;
-        }
-
-        /* 타이머 스타일 추가 */
-        .timer {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid #333;
-            border-radius: 4px;
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        /* 스와이퍼 관련 스타일 추가 */
-        .target-list {
-            position: fixed;
-            bottom: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: min(100vw - 20px, 480px);
-            height: 60px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 8px;
-            border: 2px solid #333;
-        }
-
-        .swiper {
-            width: 100%;
-            height: 100%;
-            padding: 0 20px;
-        }
-
-        .swiper-slide {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 16px;
-            font-weight: bold;
-            color: #333;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .swiper-slide.found {
-            color: #ccc;
-            text-decoration: line-through;
-        }
-
-        /* 클릭 효과 관련 스타일 추가 */
-        .target.found::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 4px solid #2ecc71;
-            border-radius: 50%;
-            animation: pulse 0.5s ease-out;
-        }
-
-        .click-mark {
-            position: absolute;
-            pointer-events: none;
-            width: 40px;
-            height: 40px;
-            transform: translate(-50%, -50%);
-        }
-
-        .click-mark.wrong::before,
-        .click-mark.wrong::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 4px;
-            background: #e74c3c;
-            border-radius: 2px;
-        }
-
-        .click-mark.wrong::before {
-            transform: translate(-50%, -50%) rotate(45deg);
-        }
-
-        .click-mark.wrong::after {
-            transform: translate(-50%, -50%) rotate(-45deg);
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(0.8);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1.2);
-                opacity: 0;
-            }
-        }
-
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-
-        .complete-layer {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            z-index: 1000;
-            padding: 20px;
-        }
-
-        .complete-layer.active {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .complete-layer input[type="text"] {
-            width: 100%;
-            max-width: 300px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .phone-inputs {
-            display: flex;
-            gap: 10px;
-            width: 100%;
-            max-width: 300px;
-        }
-
-        .phone-inputs input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            text-align: center;
-        }
-
-        .checkbox-group {
-            width: 100%;
-            max-width: 300px;
-        }
-
-        #result {
-            width: 100%;
-            max-width: 300px;
-            padding: 12px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        #result:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-    </style>
-
+    <link rel="stylesheet" href="style.css">
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 <body>
 <div id="page">
-    <div class="container">
+    <div class="game-container">
         <div class="background">
             <span class="target item1" data-text="모자"></span>
-            <span class="target item2" data-text="우산"></span>
-            <span class="target item3" data-text="시계"></span>
+            <!-- <span class="target item2" data-text="우산"></span> -->
+            <!-- <span class="target item3" data-text="시계"></span>
             <span class="target item4" data-text="책"></span>
             <span class="target item5" data-text="안경"></span>
             <span class="target item6" data-text="가방"></span>
             <span class="target item7" data-text="신발"></span>
             <span class="target item8" data-text="장갑"></span>
             <span class="target item9" data-text="지갑"></span>
-            <span class="target item10" data-text="열쇠"></span>
+            <span class="target item10" data-text="열쇠"></span> -->
         </div>
         <div class="timer">00:00</div>
         <div class="minimap">
@@ -313,8 +40,8 @@
         <div class="swiper">
             <div class="swiper-wrapper">
                 <div class="swiper-slide" data-target="item1">모자</div>
-                <div class="swiper-slide" data-target="item2">우산</div>
-                <div class="swiper-slide" data-target="item3">시계</div>
+                <!-- <div class="swiper-slide" data-target="item2">우산</div> -->
+                <!-- <div class="swiper-slide" data-target="item3">시계</div>
                 <div class="swiper-slide" data-target="item4">책</div>
                 <div class="swiper-slide" data-target="item5">안경</div>
                 <div class="swiper-slide" data-target="item6">가방</div>
@@ -322,7 +49,7 @@
                 <div class="swiper-slide" data-target="item8">장갑</div>
                 <div class="swiper-slide" data-target="item9">지갑</div>
                 <div class="swiper-slide" data-target="item10">열쇠</div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
@@ -343,12 +70,26 @@
     </div>
     <button id="result">결과보기</button>
 </div>
+
+<div id="nickname" class="nickname-layer">
+    <div class="nickname-content">
+        <input type="text" id="nicknameInput" placeholder="닉네임을 입력해주세요">
+        <button id="submitNickname">확인</button>
+    </div>
+</div>
+
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
     document.querySelectorAll('.target').forEach(target => {
-        target.addEventListener('click', function() {
-            const targetClass = this.classList[1]; // item1, item2, ...
+        target.addEventListener('click', function(e) {
+            // 파노라마가 진행 중이면 클릭 무시
+            if (isPanoramaPlaying) {
+                e.preventDefault();
+                return;
+            }
+            
+            const targetClass = this.classList[1];
             const targetSlide = document.querySelector(`.swiper-slide[data-target="${targetClass}"]`);
             if (targetSlide) {
                 targetSlide.classList.add('found');
@@ -357,7 +98,7 @@
         });
     });
 
-    const container = document.querySelector('.container');
+    const container = document.querySelector('.game-container');
     const background = document.querySelector('.background');
     const zoomButtons = document.querySelectorAll('.zoom-btn');
     const minimapViewport = document.querySelector('.minimap-viewport');
@@ -667,9 +408,9 @@
     window.addEventListener('mouseup', stopDragging);
 
     // 터치 이벤트 리스너 추가
-    background.addEventListener('touchstart', startDragging);
-    window.addEventListener('touchmove', drag);
-    window.addEventListener('touchend', stopDragging);
+    background.addEventListener('touchstart', startDragging, { passive: false });
+    window.addEventListener('touchmove', drag, { passive: false });
+    window.addEventListener('touchend', stopDragging, { passive: false });
 
     // Swiper 초기화
     const swiper = new Swiper('.swiper', {
@@ -682,7 +423,12 @@
 
     // 클릭 이벤트 핸들러 수정
     background.addEventListener('click', function(e) {
-        // 클릭한 요소가 target 클래스를 가지고 있는지 확인
+        // 파노라마가 진행 중이면 클릭 무시
+        if (isPanoramaPlaying) {
+            e.preventDefault();
+            return;
+        }
+        
         const target = e.target.closest('.target');
         
         if (target) {
@@ -730,15 +476,6 @@
         }
     });
 
-    // 기존의 target click 이벤트 리스너는 제거
-    // document.querySelectorAll('.target').forEach(target => {
-    //     target.removeEventListener('click', function() {
-    //         alert(this.dataset.text);
-    //     });
-    // });
-
-
-
     function complete(finalTime) {
         const completeLayer = document.getElementById('complete');
         completeLayer.classList.add('active');
@@ -771,7 +508,7 @@
                 alert('필수 약관에 동의해주세요.');
                 return;
             }
-            
+            showNicknameLayer();
             try {
                 const response = await fetch('https://{DOMAIN}/api/event-proc.php', {
                     method: 'POST',
@@ -792,11 +529,86 @@
                 }
                 
                 const result = await response.json();
-                alert('이벤트 참여가 완료되었습니다!');
+                
+                if (!result.result) {
+                    // 실패 시
+                    if (result.message) {
+                        alert(result.message);
+                    } else {
+                        alert('이벤트 참여 중 오류가 발생했습니다.');
+                    }
+                    return;
+                }
+                
+                // 성공 시
+                let successMessage = '이벤트 참여가 완료되었습니다!';
+                if (result.ranking) {
+                    successMessage += `\n오늘의 순위: ${result.ranking}위`;
+                }
+                
+                // 닉네임 입력이 필요한 경우
+                if (!result.nickname) {
+                    showNicknameLayer();
+                } else {
+                    alert(successMessage);
+                    completeLayer.classList.remove('active');
+                }
                 
             } catch (error) {
                 console.error('API 호출 중 오류 발생:', error);
                 alert('이벤트 참여 중 오류가 발생했습니다. 다시 시도해주세요.');
+            }
+        });
+    }
+
+    // 닉네임 입력 레이어 표시 함수
+    function showNicknameLayer() {
+        const completeLayer = document.getElementById('complete');
+        const nicknameLayer = document.getElementById('nickname');
+        const name = document.getElementById('name').value;
+        const phone1 = document.getElementById('phone1').value;
+        const phone2 = document.getElementById('phone2').value;
+        const phone3 = document.getElementById('phone3').value;
+        const phone = `${phone1}${phone2}${phone3}`;
+        
+        nicknameLayer.classList.add('active');
+        
+        document.getElementById('submitNickname').addEventListener('click', async () => {
+            const nickname = document.getElementById('nicknameInput').value;
+            if (nickname.length < 2) {
+                alert('닉네임을 2자 이상 입력해주세요.');
+                return;
+            }
+            
+            try {
+                const response = await fetch('https://{DOMAIN}/api/nickname-proc.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        hphone: phone,
+                        nickname: nickname
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('닉네임 저장 실패');
+                }
+                
+                const result = await response.json();
+                if (result.result) {
+                    // 성공 시
+                    nicknameLayer.classList.remove('active');
+                    alert('닉네임이 저장되었습니다. 결과보기 버튼을 클릭해주세요.');
+                } else {
+                    // 실패 시
+                    alert(result.message || '닉네임이 중복되어 사용할 수 없습니다.');
+                }
+            } catch (error) {
+                console.error('닉네임 저장 중 오류 발생:', error);
+                alert('닉네임 저장에 실패했습니다. 다시 시도해주세요.');
             }
         });
     }
