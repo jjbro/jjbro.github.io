@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>숨은 그림 찾기</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+</head>
+<body>
+<div id="page">
+    <header>
+        <h1>sk 이노베이션</h1>
+    </header>
+    <div class="container">
+        <p>SK찾아 세계속으로<br /> 숨은 에너지 찾기</p>
+        <div class="img"><img src="background.jpeg" alt="이미지"></div>
+        <p>전 세계 속 SK의 숨은 에너지 10개 찾고 레고 블록팩 받자!</p>
+        <ul>
+            <li>이벤트 기간 : 12/9(월)~12/22(일)</li>
+            <li>당첨자발표 : 12/25 (문자 발표)</li>
+            <li>경품 : SK이노베이션 옥스포드 레고 블록팩 (랜덤 1,500명 선정)</li>
+        </ul>
+        <div class="btn-group">
+            <button>게임방법</button>
+            <button>오늘의 랭킹 확인</button>
+        </div>
+        <button id="kakao-share-btn">카카오톡 공유하기</button>
+        <button class="game-start-btn">GAME START</button>
+        
+        <div class="logo">
+            <img src="sk_innovation_logo.png" alt="SK이노베이션 로고">
+        </div>
+    </div>
+
+    <script>
+        Kakao.init('YOUR_JAVASCRIPT_KEY'); // 발급받은 카카오 JavaScript 키 입력
+
+        document.getElementById('kakao-share-btn').addEventListener('click', function() {
+            Kakao.Share.sendDefault({
+                objectType: 'feed',
+                content: {
+                    title: 'SK찾아 세계속으로',
+                    description: '전 세계 속 SK의 숨은 에너지 10개 찾고 레고 블록팩 받자!',
+                    imageUrl: 'background.jpeg의 전체 URL 주소',
+                    link: {
+                        mobileWebUrl: window.location.href,
+                        webUrl: window.location.href,
+                    },
+                },
+                buttons: [
+                    {
+                        title: '게임 시작하기',
+                        link: {
+                            mobileWebUrl: window.location.href,
+                            webUrl: window.location.href,
+                        },
+                    },
+                ],
+            });
+        });
+    </script>
+</div>
+</body>
+</html>
