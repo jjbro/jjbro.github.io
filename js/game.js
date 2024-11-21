@@ -387,11 +387,19 @@ document.addEventListener('DOMContentLoaded', () => {
         slideToClickedSlide: true
     });
 
-    // 초기 크기 설정
-    updateZoom(currentScale);
-    // 초기 미니맵 뷰포트 설정
-    updateMinimapViewport();
+    const backgroundImage = new Image();
+    backgroundImage.src = "/images/background.jpeg";
+    backgroundImage.onload = function() {
+        // 이미지가 로드된 후 게임 시작
+        startGame();
+    };
 
-    // 파노라마 실행
-    setTimeout(playPanorama, 100);
+    function startGame() {
+        // 초기 크기 설정
+        updateZoom(currentScale);
+         // 초기 미니맵 뷰포트 설정
+        updateMinimapViewport();
+        // 파노라마 실행
+        setTimeout(playPanorama, 500);
+    }
 });
