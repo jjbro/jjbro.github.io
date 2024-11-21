@@ -26,7 +26,7 @@
                     <li class="indent"><strong>경품</strong> : SK이노베이션 옥스포드 레고 블록팩 (랜덤 1,500명 선정)</li>
                 </ul>
                 
-                <!-- <button id="kakao-share-btn">카카오톡 공유하기</button> -->
+                <button id="kakao-share-btn">카카오톡 공유하기</button>
 
                 <div class="notice">
                     <h2>이벤트 유의사항</h2>
@@ -48,33 +48,33 @@
             ⓒ 2024 SK innovation Co., Ltd</p>
     </footer>
 </div>
-<!-- <script src="https://developers.kakao.com/sdk/js/kakao.js"></script> -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
-    // Kakao.init('JAVASCRIPT_KEY'); 
+    Kakao.init('a7fc4bbe5d956fcc2525283cd9daae87'); 
 
-    // document.getElementById('kakao-share-btn').addEventListener('click', function() {
-    //     Kakao.Share.sendDefault({
-    //         objectType: 'feed',
-    //         content: {
-    //             title: 'SK찾아 세계속으로',
-    //             description: '전 세계 속 SK의 숨은 에너지 10개 찾고 레고 블록팩 받자!',
-    //             imageUrl: 'background.jpeg의 전체 URL 주소',
-    //             link: {
-    //                 mobileWebUrl: window.location.href,
-    //                 webUrl: window.location.href,
-    //             },
-    //         },
-    //         buttons: [
-    //             {
-    //                 title: '게임 시작하기',
-    //                 link: {
-    //                     mobileWebUrl: window.location.href,
-    //                     webUrl: window.location.href,
-    //                 },
-    //             },
-    //         ],
-    //     });
-    // });
+    document.getElementById('kakao-share-btn').addEventListener('click', function() {
+        Kakao.Share.sendDefault({
+            objectType: 'feed',
+            content: {
+                title: 'SK찾아 세계속으로',
+                description: '전 세계 속 SK의 숨은 에너지 10개 찾고 레고 블록팩 받자!',
+                imageUrl: 'background.jpeg의 전체 URL 주소',
+                link: {
+                    mobileWebUrl: window.location.href,
+                    webUrl: window.location.href,
+                },
+            },
+            buttons: [
+                {
+                    title: '게임 시작하기',
+                    link: {
+                        mobileWebUrl: window.location.href,
+                        webUrl: window.location.href,
+                    },
+                },
+            ],
+        });
+    });
 </script>
 </body>
 </html>
