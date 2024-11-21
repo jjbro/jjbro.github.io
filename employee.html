@@ -1,32 +1,27 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>숨은 그림 찾기</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>숨은 에너지 찾기</title>
+        <!-- 스타일 -->
+        <link rel="stylesheet" href="style.css">
+    </head>
 <body>
 <div id="page">
-    <header id="header">
-        <h1>sk 이노베이션</h1>
-    </header>
-    <div class="container">
-        <p>SK찾아 세계속으로<br /> 숨은 에너지 찾기</p>
-        <div class="img"><img src="background.jpeg" alt="이미지"></div>
-        <div class="input-layer">
-            <p class="empno-text">임직원용 페이지 입니다.<br />사번 입력 후 참여해주세요.</p>
-            <div class="empno-input">
-                <input type="text" id="empno" placeholder="사번">
-                <button id="empno-check">확인</button>
+    <section id="layout-section">
+        <div class="employee-container">
+            <div class="employee-layer">
+                <p class="empno-text">임직원용 페이지 입니다.<br />사번 입력 후 참여해주세요.</p>
+                <div class="empno-input">
+                    <input type="text" id="empno" placeholder="사번">
+                    <button id="empno-check">확인</button>
+                </div>
             </div>
+            <p>일반인은 해당 링크로 <br />참여가 가능합니다.</p>
+            <button>바로가기</button>
         </div>
-        <p>일반인은 해당 링크로 <br />참여가 가능합니다.</p>
-        <button>바로가기</button>
-    </div>
+    </section>
     <footer id="footer">
         <p>SK찾아 세계속으로<br /> 숨은 에너지 찾기</p>
     </footer>
@@ -69,7 +64,7 @@
                 window.location.href = 'main.html';
             } else {
                 // 실패시 에러 메시지 표시
-                alert(data.message || '사번 확인에 실패했습니다.');
+                alert(data.message || '사번 확인에 실패했습니다. 일반인은 아래 바로가기를 통해 참여');
             }
         } catch (error) {
             alert('서버 통신 중 오류가 발생했습니다.');
