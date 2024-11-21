@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <title>Document</title>
+    <style>
+      input{font-size:20px}
+      div{margin-bottom:5px}
+      .tit{display:inline-block;width:50px}
+    </style>
+    <script src="https://static.priviatravel.com/js/front/travel/jquery-1.8.3.min.js"></script> 
+    <script>
+    $(function(){
+      var lv = $('#lv').val()
+      $('#lv').on('change',function(){
+        lv = $(this).val();
+        $('#a, #b, #c, #d').trigger('change')
+      })
+      $('#a').on('change',function(){
+        $('#aa').html(Math.floor(($(this).val()*1.6535) + (lv* $(this).val()/20.155)));
+        $('#aaa').html(Math.floor(($(this).val()/7.558562) + (lv* $(this).val()/252.188)));
+      })
+      $('#b').on('change',function(){
+        $('#bb').html(Math.floor(($(this).val()/6.36) + (lv* $(this).val()/211.7)));
+      })
+      $('#c').on('change',function(){
+        $('#cc').html(Math.floor(($(this).val()/10.1897) + (lv* $(this).val()/338.8268)));
+      })
+      $('#d').on('change',function(){
+        $('#dd').html(Math.floor($(this).val()/2.5));
+      })
+      $('#result').on('click',function(){
+          $('.result').append('<div>결과 : 내구('+$("#aa").html()+'), 충뎀('+$("#aaa").html()+'), 공격('+$("#bb").html()+'), 장갑('+$("#cc").html()+'), 속력('+$("#dd").html()+')</div> ');
+      })
+    })
+    </script>
+</head>
+<body>
+    <div><span class="tit">선박LV</span> <input type="text" id="lv" placeholder="0"></div>
+    <div><span class="tit">내구</span> <input type="text" id="a"></div>
+    <div><span class="tit">공격</span> <input type="text" id="b"></div>
+    <div><span class="tit">장갑</span> <input type="text" id="c"></div>
+    <div><span class="tit">속력</span> <input type="text" id="d"></div>
+    <br />
+    <span class="tit">내구</span> <span id="aa"></span><br />
+    <span class="tit">충뎀</span> <span id="aaa"></span><br />
+    <span class="tit">공격</span> <span id="bb"></span><br />
+    <span class="tit">장갑</span> <span id="cc"></span><br />
+    <span class="tit">속력</span> <span id="dd"></span><br /><br />
+
+    <button type="button" id="result">결과 저장</button>
+    <div class="result">
+        
+    </div>
+</body>
+</html>
