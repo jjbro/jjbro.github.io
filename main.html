@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <div id="page">
+    <div id="fireworksContainer"></div>
     <section id="layout-section">
         <div class="main-container">
             <div class="main-top">
@@ -72,9 +74,14 @@
 <script src="/js/common.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
-    setTimeout(function() {
-        closeModal('gameRankLayer');
-    },3000)
+    window.addEventListener('load', () => {
+        startFireworks();
+        setTimeout(function() {
+            closeModal('gameRankLayer');
+        },3000)
+    });
+    
+
         //카카오 초기화
         Kakao.init('a7fc4bbe5d956fcc2525283cd9daae87'); 
 

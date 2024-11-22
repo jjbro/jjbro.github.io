@@ -51,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetSlide) {
                 targetSlide.classList.add('found');
             }
-            alert(this.dataset.text);
         });
     });
 
@@ -89,34 +88,46 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         const target = e.target.closest('.target');
+        const targetInfo = document.querySelector('.target-info .item');
         
         if (target) {
-            // 숨은 그림을 찾은 경우
+            // 이미 찾은 타겟인 경우 무시
+            if (target.classList.contains('found')) {
+                return;
+            }
+            
+            // target-info 업데이트
+            targetInfo.textContent = target.dataset.text;
+            targetInfo.style.visibility = 'visible';
+            
+            // 숨은 그림을 찾은 경우의 나머지 로직
             const targetClass = target.classList[1];
             const targetSlide = document.querySelector(`.swiper-slide[data-target="${targetClass}"]`);
             
-            if (!target.classList.contains('found')) {
-                target.classList.add('found');
-                if (targetSlide) {
-                    targetSlide.classList.add('found');
-                }
+            target.classList.add('found');
+            if (targetSlide) {
+                targetSlide.classList.add('found');
+            }
+            
+            // 모든 아이템을 찾았는지 확인
+            const foundItems = document.querySelectorAll('.target.found').length;
+            const totalItems = document.querySelectorAll('.target').length;
+            
+            // 찾은 아이템 수 업데이트
+            const foundCountElement = document.querySelector('.found-count');
+            foundCountElement.textContent = `${foundItems}`;
+            
+            if (foundItems === totalItems) {
+                // 타이머 정지
+                clearInterval(timerInterval);
                 
-                // 모든 아이템을 찾았는지 확인
-                const foundItems = document.querySelectorAll('.target.found').length;
-                const totalItems = document.querySelectorAll('.target').length;
+                // 최종 시간 기록
+                const finalTime = timerElement.textContent;
                 
-                if (foundItems === totalItems) {
-                    // 타이머 정지
-                    clearInterval(timerInterval);
-                    
-                    // 최종 시간 기록
-                    const finalTime = timerElement.textContent;
-                    
-                    // 축하 메시지 표시
-                    setTimeout(() => {
-                        complete(finalTime);
-                    }, 500);
-                }
+                // 축하 메시지 표시
+                setTimeout(() => {
+                    complete(finalTime);
+                }, 500);
             }
         } else {
             // 빈 공간을 클릭한 경우
@@ -255,6 +266,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         e.preventDefault();
         
+        // target-info 숨기기
+        const targetInfo = document.querySelector('.target-info .item');
+        targetInfo.style.visibility = 'hidden';
+        
         let clientX, clientY;
         if (e.type === 'mousemove') {
             clientX = e.clientX;
@@ -350,8 +365,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 requestAnimationFrame(animate);
             } else {
                 isPanoramaPlaying = false;
-                // 파노라마가 끝난 후 이미지 위치 초기화 및 타이머 시작
-                currentX = 0;
+                // 이미 구한 containerRect와 backgroundRect를 사용하여 중앙 위치 계산
+                currentX = (containerRect.width - backgroundRect.width) / 2 + 50;
+                currentX = Math.max(minX, Math.min(0, currentX));
+                
                 background.style.transform = `translate(${currentX}px, ${currentY}px)`;
                 updateMinimapViewport();
                 startTime = Date.now();
@@ -388,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const backgroundImage = new Image();
-    backgroundImage.src = "/images/background.jpeg";
+    backgroundImage.src = "/images/background.jpg";
     backgroundImage.onload = function() {
         // 이미지가 로드된 후 게임 시작
         startGame();

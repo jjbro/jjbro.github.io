@@ -26,6 +26,10 @@
                 <span class="target item10" data-text="열쇠"></span>
             </div>
             <div class="timer">00:00</div>
+            <div class="zoom-controls">
+                <button class="zoom-btn" id="zoomOut">-</button>
+                <button class="zoom-btn" id="zoomIn">+</button>
+            </div>
             <div class="minimap">
                 <div class="minimap-content">
                     <div class="minimap-viewport"></div>
@@ -33,12 +37,13 @@
             </div>
         </div>
 
-        <div class="zoom-controls">
-            <button class="zoom-btn" id="zoomOut">-</button>
-            <button class="zoom-btn" id="zoomIn">+</button>
+        <div class="target-info">
+            <div class="item">
+            </div>
         </div>
 
         <div class="target-list">
+            <p class="found-target">찾은 아이템 <strong class="found-count">0</strong>/10</p>
             <div class="swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" data-target="item1">모자</div>
@@ -83,8 +88,11 @@
 
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/common.js"></script>
 <script src="js/game.js"></script>
 <script>
+
+    // 완료 레이어 표시 함수(최종 플레이타임)
     function complete(finalTime) {
         const completeLayer = document.getElementById('complete');
         completeLayer.classList.add('active');
