@@ -26,7 +26,7 @@
                     <li class="indent"><strong>경품</strong> : SK이노베이션 옥스포드 레고 블록팩 (랜덤 1,500명 선정)</li>
                 </ul>
                 
-                <button id="kakao-share-btn">카카오톡 공유하기</button>
+                <button id="kakao-share-btn" class="btn-kakao-share mx-auto">카카오톡 공유하기</button>
 
                 <div class="notice">
                     <h2>이벤트 유의사항</h2>
@@ -48,9 +48,35 @@
             ⓒ 2024 SK innovation Co., Ltd</p>
     </footer>
 </div>
+
+<div id="gameRuleLayer" class="layer-popup">
+    <div class="dimm"></div>
+    <div class="content">
+        <button type="button" class="btn-close">
+            <span class="blind">X</span>
+        </button>
+        <h2>게임 방법</h2>
+    </div>
+    
+</div>
+<div id="gameRankLayer" class="layer-popup">
+    <div class="dimm"></div>
+    <div class="content">
+        <button type="button" class="btn-close">
+            <span class="blind">X</span>
+        </button>
+        <h2>오늘의 랭킹</h2>
+    </div>
+</div>
+
+<script src="/js/common.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
-    Kakao.init('a7fc4bbe5d956fcc2525283cd9daae87'); 
+    setTimeout(function() {
+        closeModal('gameRankLayer');
+    },3000)
+        //카카오 초기화
+        Kakao.init('a7fc4bbe5d956fcc2525283cd9daae87'); 
 
     document.getElementById('kakao-share-btn').addEventListener('click', function() {
         Kakao.Share.sendDefault({
@@ -75,6 +101,8 @@
             ],
         });
     });
+
+    
 </script>
 </body>
 </html>
