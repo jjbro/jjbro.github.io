@@ -14,10 +14,12 @@
     <section id="layout-section">
         <div class="main-container">
             <div class="main-top">
-                <a href="/event.html" class="btn-game-start"><img class="img" src="/images/btn-game-start.png" alt="게임시작"></a>
-                <div class="btn-group">
-                    <button class="btn-game-rule"><img class="img" src="/images/btn-game-rule.png" alt="게임방법"></button>
-                    <button class="btn-game-rank"><img class="img" src="/images/btn-today-rank.png" alt="오늘의 랭킹 확인"></button>
+                <div class="btn-wrap">
+                    <a href="/event.html" class="btn-game-start"><img class="img" src="/images/btn-game-start.png" alt="게임시작"></a>
+                    <div class="btn-group">
+                        <button class="btn-game-rule"><img class="img" src="/images/btn-game-rule.png" alt="게임방법"></button>
+                        <button class="btn-game-rank"><img class="img" src="/images/btn-today-rank.png" alt="오늘의 랭킹 확인"></button>
+                    </div>
                 </div>
             </div>
             <div class="main-cont">
@@ -51,63 +53,130 @@
     </footer>
 </div>
 
+<!-- 게임 방법 -->
 <div id="gameRuleLayer" class="layer-popup">
     <div class="dimm"></div>
     <div class="content">
-        <button type="button" class="btn-close">
-            <span class="blind">X</span>
-        </button>
         <h2>게임 방법</h2>
+        <button id="close-rule" type="button" class="btn-style">
+            닫기
+        </button>
     </div>
-    
 </div>
+
+<!-- 오늘의 랭킹 -->
 <div id="gameRankLayer" class="layer-popup">
     <div class="dimm"></div>
     <div class="content">
-        <button type="button" class="btn-close">
-            <span class="blind">X</span>
-        </button>
         <h2>오늘의 랭킹</h2>
+        <div class="rank-content">
+            <ul class="rank-list">
+                <!-- 랭킹 데이터  -->
+            </ul>
+        </div>
+        <button id="close-rank" type="button" class="btn-style">
+            닫기
+        </button>
     </div>
 </div>
 
 <script src="/js/common.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
-    window.addEventListener('load', () => {
+    // 테스트용 랭킹 데이터
+    const mockRankData = [
+        { nickname: "에너지왕123", timer: 65 },
+        { nickname: "찾아라SK", timer: 82 },
+        { nickname: "게임고수", timer: 95 },
+        { nickname: "SK매니아", timer: 110 },
+        { nickname: "열심히찾기", timer: 125 },
+        { nickname: "숨은보물", timer: 138 },
+        { nickname: "에너지파인더", timer: 145 },
+        { nickname: "SK러버", timer: 160 },
+        { nickname: "파워레인저", timer: 180 }
+    ];
+
+     // 시간 포맷 함수 (초 -> 0분 00초 형식)
+     function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}분 ${String(remainingSeconds).padStart(2, '0')}초`;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // 메인 상단 반짝이 효과
         startFireworks();
-        setTimeout(function() {
-            closeModal('gameRankLayer');
-        },3000)
-    });
-    
 
+        //오늘의 랭킹 버튼 클릭
+        document.querySelector('.btn-game-rank').addEventListener('click', function() {
+            const rankList = document.querySelector('.rank-list');
+            rankList.innerHTML = ''; // 기존 데이터 초기화
+            openModal('gameRankLayer');
+
+            // 테스트용 데이터 사용
+            mockRankData.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <span class="rank-num">${index + 1}</span>
+                    <span class="rank-name">${item.nickname}</span>
+                    <span class="rank-score">${formatTime(item.timer)}</span>
+                `;
+                rankList.appendChild(li);
+            });
+
+            /* API 연동 예시
+            fetch(`https://{DOMAIN}/api/rank`)
+                .then(response => response.json())
+                .then(data => {
+                    data.slice(0, 9).forEach((item, index) => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                            <span class="rank-num">${index + 1}</span>
+                            <span class="rank-name">${item.nickname}</span>
+                            <span class="rank-score">${formatTime(item.timer)}</span>
+                        `;
+                        rankList.appendChild(li);
+                    });
+                })
+                .catch(error => {
+                    console.error('랭킹 데이터 로딩 실패:', error);
+                });
+            */
+        });
         //카카오 초기화
-        Kakao.init('a7fc4bbe5d956fcc2525283cd9daae87'); 
+        Kakao.init('a7fc4bbe5d956fcc2525283cd9daae87'); //key 변경 요망
 
-    document.getElementById('kakao-share-btn').addEventListener('click', function() {
-        Kakao.Share.sendDefault({
-            objectType: 'feed',
-            content: {
-                title: 'SK찾아 세계속으로',
-                description: '전 세계 속 SK의 숨은 에너지 10개 찾고 레고 블록팩 받자!',
-                imageUrl: 'background.jpeg의 전체 URL 주소',
-                link: {
-                    mobileWebUrl: window.location.href,
-                    webUrl: window.location.href,
-                },
-            },
-            buttons: [
-                {
-                    title: '게임 시작하기',
+        // 카카오 공유하기
+        document.getElementById('kakao-share-btn').addEventListener('click', function() {
+            Kakao.Share.sendDefault({
+                objectType: 'feed',
+                content: {
+                    title: 'SK찾아 세계속으로',
+                    description: '전 세계 속 SK의 숨은 에너지 10개 찾고 레고 블록팩 받자!',
+                    imageUrl: `${window.location.href}/images/background.jpg`,
                     link: {
                         mobileWebUrl: window.location.href,
                         webUrl: window.location.href,
                     },
                 },
-            ],
+                buttons: [
+                    {
+                        title: '게임 시작하기',
+                        link: {
+                            mobileWebUrl: window.location.href,
+                            webUrl: window.location.href,
+                        },
+                    },
+                ],
+            });
         });
     });
+    
+    
+
+    
+
+   
 
     
 </script>

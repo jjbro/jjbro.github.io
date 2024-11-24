@@ -1,19 +1,28 @@
 document.addEventListener('DOMContentLoaded', function() {
     // 레이어 팝업 열기
-    document.querySelector('.btn-game-rule').addEventListener('click', function() {
-        openModal('gameRuleLayer');
-    });
+    const btnGameRule = document.querySelector('.btn-game-rule');
+    if (btnGameRule) {
+        btnGameRule.addEventListener('click', function() {
+            openModal('gameRuleLayer');
+        });
+    }
 
-    document.querySelector('.btn-game-rank').addEventListener('click', function() {
-        openModal('gameRankLayer');
-    });
+    const btnGameRank = document.querySelector('.btn-game-rank');
+    if (btnGameRank) {
+        btnGameRank.addEventListener('click', function() {
+            openModal('gameRankLayer');
+        });
+    }
 
     // 레이어 팝업 닫기
-    document.querySelectorAll('.layer-popup .dimm, .btn-close').forEach(function(element) {
-        element.addEventListener('click', function() {
-            closeModal(this.closest('.layer-popup').id);
+    const closeButtons = document.querySelectorAll('.layer-popup .dimm, .btn-close');
+    if (closeButtons.length > 0) {
+        closeButtons.forEach(function(element) {
+            element.addEventListener('click', function() {
+                closeModal(this.closest('.layer-popup').id);
+            });
         });
-    });
+    }
 
     // ESC 키로 팝업 닫기
     document.addEventListener('keydown', function(e) {
@@ -22,6 +31,20 @@ document.addEventListener('DOMContentLoaded', function() {
             if (openModal) closeModal(openModal.id);
         }
     });
+
+    const closeRuleBtn = document.getElementById('close-rule');
+    if (closeRuleBtn) {
+        closeRuleBtn.addEventListener('click', function() {
+            closeModal('gameRuleLayer');
+        });
+    }
+
+    const closeRankBtn = document.getElementById('close-rank');
+    if (closeRankBtn) {
+        closeRankBtn.addEventListener('click', function() {
+            closeModal('gameRankLayer');
+        });
+    }
 });
 
 // 모달 열기 함수

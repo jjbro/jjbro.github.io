@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 파노라마 관련 변수 추가
     let isPanoramaPlaying = false;
-    const panoramaDuration = 3000; // 3초
-    const panoramaDistance = -1000; // 이동할 거리 (픽셀)
+    const panoramaDuration = 3000; // 이동 시간
+    const panoramaDistance = -1000; // 이동 거리
 
     // 타이머 관련 변수 추가
     const timerElement = document.querySelector('.timer');
@@ -88,7 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         const target = e.target.closest('.target');
-        const targetInfo = document.querySelector('.target-info .item');
+        const targetInfo = document.querySelector('.target-info');
+        const targetImg = targetInfo.querySelector('.bg-img');
+        const targetName = targetInfo.querySelector('.name');
+        const targetCountry = targetInfo.querySelector('.country');
+        const targetDesc = targetInfo.querySelector('.desc');
         
         if (target) {
             // 이미 찾은 타겟인 경우 무시
@@ -97,7 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             // target-info 업데이트
-            targetInfo.textContent = target.dataset.text;
+            targetName.textContent = target.dataset.text;
+            targetCountry.textContent = target.dataset.country;
+            targetDesc.textContent = target.dataset.desc;
+            targetImg.className = 'bg-img';
+            targetImg.classList.add(target.dataset.target);
             targetInfo.style.visibility = 'visible';
             
             // 숨은 그림을 찾은 경우의 나머지 로직
@@ -107,6 +115,9 @@ document.addEventListener('DOMContentLoaded', () => {
             target.classList.add('found');
             if (targetSlide) {
                 targetSlide.classList.add('found');
+                // 해당 슬라이드의 인덱스를 찾아서 이동
+                const slideIndex = Array.from(targetSlide.parentElement.children).indexOf(targetSlide);
+                swiper.slideTo(slideIndex);
             }
             
             // 모든 아이템을 찾았는지 확인
@@ -213,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
         minimapViewport.style.top = `${viewportY}px`;
     }
 
-    // 터치 이벤트 리스너에 핀치 줌 관련 코드 추가
+    // 핀치 줌
     function startDragging(e) {
         if (e.type === 'touchstart' && e.touches.length === 2) {
             // 핀치 줌 시작
@@ -243,7 +254,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function drag(e) {
         if (e.type === 'touchmove' && e.touches.length === 2) {
-            // 핀치 줌 처리
             e.preventDefault();
             const touch1 = e.touches[0];
             const touch2 = e.touches[1];
@@ -267,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         
         // target-info 숨기기
-        const targetInfo = document.querySelector('.target-info .item');
+        const targetInfo = document.querySelector('.target-info');
         targetInfo.style.visibility = 'hidden';
         
         let clientX, clientY;
@@ -302,7 +312,6 @@ document.addEventListener('DOMContentLoaded', () => {
         currentX = newX;
         currentY = newY;
 
-        // transform에는 translate만 적용
         background.style.transform = `translate(${currentX}px, ${currentY}px)`;
         
         // 미니맵 업데이트
@@ -366,7 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 isPanoramaPlaying = false;
                 // 이미 구한 containerRect와 backgroundRect를 사용하여 중앙 위치 계산
-                currentX = (containerRect.width - backgroundRect.width) / 2 + 50;
+                currentX = (containerRect.width - backgroundRect.width) / 2 + 75;
                 currentX = Math.max(minX, Math.min(0, currentX));
                 
                 background.style.transform = `translate(${currentX}px, ${currentY}px)`;
@@ -397,7 +406,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Swiper 초기화
     const swiper = new Swiper('.swiper', {
-        slidesPerView: 6,
+        slidesPerView: 4,
         spaceBetween: 20,
         resistance: true,
         resistanceRatio: 0,
@@ -405,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const backgroundImage = new Image();
-    backgroundImage.src = "/images/background.jpg";
+    backgroundImage.src = "/images/background.png";
     backgroundImage.onload = function() {
         // 이미지가 로드된 후 게임 시작
         startGame();
