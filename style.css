@@ -969,10 +969,6 @@ input:focus {
     font-weight: 700;
 }
 
-#gameRankLayer .content{
-    background:transparent;
-
-}
 
 #gameRankLayer .my-rank-content{
     background: #fff;

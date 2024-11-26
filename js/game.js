@@ -132,8 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 타이머 정지
                 clearInterval(timerInterval);
                 
-                // 최종 시간 기록
-                const finalTime = timerElement.textContent;
+                // 완료 시점의 정확한 시간 계산
+                const finalTime = ((Date.now() - startTime) / 1000).toFixed(2);
                 
                 // 축하 메시지 표시
                 setTimeout(() => {
@@ -334,6 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // 화면에 표시할 시간 포맷팅 (분:초)
         const minutes = Math.floor(elapsedTime / 60);
         const seconds = elapsedTime % 60;
         

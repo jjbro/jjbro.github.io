@@ -183,8 +183,6 @@
 <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-    
-
     // 완료 레이어 표시 함수(최종 플레이타임)
     function complete(finalTime) {
         const foundItems = document.querySelectorAll('.target.found').length;
@@ -228,7 +226,6 @@
             }
             try {
                 //const result = {result:true, nickname:'아무개', ranking:'2,233'};
-
                 const response = await fetch('https://{DOMAIN}/api/event-proc.php', {
                     method: 'POST',
                     headers: {
@@ -237,7 +234,7 @@
                     body: JSON.stringify({
                         name: name,
                         hphone: phone,
-                        timer: totalSeconds,
+                        timer: finalTime,
                         agree1: privacy ? 'Y' : 'N',
                         agree2: age ? 'Y' : 'N',
                         ...(nickname && { nickname })
@@ -276,7 +273,7 @@
                     user.textContent = `${result.nickname}님의 게임결과`;
                     const minutes = Math.floor(totalSeconds / 60);
                     const seconds = totalSeconds % 60;
-                    time.textContent = `${minutes}분 ${seconds}초`;
+                    time.textContent = `${minutes} : ${seconds}`;
                     rank.textContent = result.ranking.toLocaleString();
 
                     // 결과 레이어 표시
@@ -284,7 +281,7 @@
 
                     // 오늘의 랭킹 클릭 시 호출되는 팝업에 데이터 추가 셋팅
                     todayNickname.textContent = result.nickname;
-                    todayTime.textContent = `${minutes}분 ${seconds}초`;
+                    todayTime.textContent = finalTime;
                     todayRank.textContent = result.ranking.toLocaleString();
                 }
                 
@@ -313,24 +310,17 @@
         }
     }
 
-    // 시간 포맷 함수 (초 -> 0분 00초 형식)
-    function formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return `${minutes}분 ${String(remainingSeconds).padStart(2, '0')}초`;
-    }
-
     // 테스트용 랭킹 데이터
     const mockRankData = [
-        { nickname: "에너지왕123", timer: 65 },
-        { nickname: "찾아라SK", timer: 82 },
-        { nickname: "게임고수", timer: 95 },
-        { nickname: "SK매니아", timer: 110 },
-        { nickname: "열심히찾기", timer: 125 },
-        { nickname: "숨은보물", timer: 138 },
-        { nickname: "에너지파인더", timer: 145 },
-        { nickname: "SK러버", timer: 160 },
-        { nickname: "파워레인저", timer: 180 }
+        { nickname: "에너지왕123", timer: 65.22 },
+        { nickname: "찾아라SK", timer: 82.22 },
+        { nickname: "게임고수", timer: 95.22 },
+        { nickname: "SK매니아", timer: 110.22 },
+        { nickname: "열심히찾기", timer: 125.22 },
+        { nickname: "숨은보물", timer: 138.22 },
+        { nickname: "에너지파인더", timer: 145.22 },
+        { nickname: "SK러버", timer: 160.22 },
+        { nickname: "파워레인저", timer: 180.22 }
     ];
     
     // DOM 로드
@@ -394,7 +384,7 @@
                 li.innerHTML = `
                     <span class="rank-num">${index + 1}</span>
                     <span class="rank-name">${item.nickname}</span>
-                    <span class="rank-score">${formatTime(item.timer)}</span>
+                    <span class="rank-score">${item.timer}초</span>
                 `;
                 rankList.appendChild(li);
             });
@@ -408,7 +398,7 @@
                         li.innerHTML = `
                             <span class="rank-num">${index + 1}</span>
                             <span class="rank-name">${item.nickname}</span>
-                            <span class="rank-score">${formatTime(item.timer)}</span>
+                            <span class="rank-score">${item.timer}초</span>
                         `;
                         rankList.appendChild(li);
                     });
