@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetInfo = document.querySelector('.target-info');
         const targetImg = targetInfo.querySelector('.bg-img');
         const targetName = targetInfo.querySelector('.name');
-        const targetCountry = targetInfo.querySelector('.country');
+        // const targetCountry = targetInfo.querySelector('.country');
         const targetDesc = targetInfo.querySelector('.desc');
         
         if (target) {
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // target-info 업데이트
             targetName.textContent = target.dataset.text;
-            targetCountry.textContent = target.dataset.country;
+            // targetCountry.textContent = target.dataset.country;
             targetDesc.textContent = target.dataset.desc;
             targetImg.className = 'bg-img';
             targetImg.classList.add(target.dataset.target);
