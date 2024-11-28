@@ -62,15 +62,16 @@ body{font-family: 'Pretendard', sans-serif;font-size:14px;}
 #footer {
     background-color:#393939;
     color:white;
-    padding:25px 30px;
+    padding:17px 24px;
     font-family: 'Cafe24SsurroundAir';
-    font-size:13px;
+    font-size:12px;
     line-height: 1.3;
 }
 /* common */
 .text-center{
     text-align: center;
 }
+.bold{font-weight: 700;}
 .mx-auto{
     margin:0 auto;
 }
@@ -149,8 +150,8 @@ input:focus {
     flex-shrink: 0;
 }
 .main-container .main-cont{
-    margin-top: 20px;
-    padding: 0 24px;
+    margin-top: 30px;
+    padding: 0 24px 20px;
 }
 .main-cont .main-copy{
     width: min(100%, calc(1039 * 100% / 1200));
@@ -231,16 +232,18 @@ input:focus {
 }
 .main-top .notice li .space{
     display: inline-block;
-    width:35px;
+    width:33px;
     height:1px;
     margin:0;
     font-size:0;
 }
 .notice-title{
     font-size:15px;
-    font-weight: 500;
+    font-weight: 700;
     text-align: center;
     margin-top:20px;
+    text-decoration: underline;    
+    text-underline-offset: 4px;
 }
 .notice ul {
     margin-top: 5px;
