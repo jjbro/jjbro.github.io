@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 /* 웹폰트 */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
 @import url('https://cdn.jsdelivr.net/npm/@noonnu/cafe24-ssurround-air@0.1.0/index.min.css');
 
 /* CSS 초기화 */
@@ -48,7 +48,7 @@ footer, header, hgroup, menu, nav, section {
     display: block;
 }
 a{ text-decoration: none;}
-body{font-family: 'Noto Sans KR', sans-serif;font-size:14px;}
+body{font-family: 'Pretendard', sans-serif;font-size:14px;}
 #page {
     
     width: min(100vw, 480px);
@@ -184,6 +184,7 @@ input:focus {
 .main-top .notice{
     margin:40px auto 0 7%;
 }
+
 .main-top .notice li{
     font-size:13px;
 }
@@ -192,7 +193,7 @@ input:focus {
     vertical-align: baseline
 }
 .main-top .notice li span{
-    font-size:10px;
+    font-size:11px;
     margin:0 5px;
     flex-shrink: 0;
 }
@@ -235,16 +236,14 @@ input:focus {
     margin:0;
     font-size:0;
 }
-.notice h2 {
-    font-size: 16px;
-    margin-bottom: 12px;
-    background:url('/images/icon-bullet1.png') no-repeat left center;
-    background-size: 10px auto;
-    padding-left: 20px;
-    color:skyblue;
+.notice-title{
+    font-size:15px;
+    font-weight: 500;
+    text-align: center;
+    margin-top:20px;
 }
 .notice ul {
-    margin-top: 20px;
+    margin-top: 5px;
     list-style: none;
     padding: 0;
 }
@@ -268,11 +267,9 @@ input:focus {
 }
 .btn-kakao-share{
     display:block;
-    background: yellow;
-    color: #000;
-    padding: 10px 20px;
-    border-radius: 5px;
-    margin-top:20px;
+    width:min(100%, calc(800 * 100% / 1280));
+    margin:0 auto;
+    aspect-ratio: 800 / 170;
 }
 
 /* 레이어팝업 */
@@ -309,7 +306,6 @@ input:focus {
     border-radius: 10px;
     opacity: 0;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    min-height: 300px;
     will-change: transform, opacity;
     border:1px solid #000;
 }
@@ -428,6 +424,38 @@ input:focus {
 }
 
 /* 오늘의 랭킹 */
+
+
+#gameRankLayer .my-rank-content{
+    display:none;
+}
+#gameRankLayer .my-rank-content.active{
+    display:block;
+}
+#gameRankLayer .my-rank-content .my-nickname{
+    font-size:24px;
+    font-weight: 500;
+}
+#gameRankLayer .my-rank-content .my-rank{
+    font-size:24px;
+    font-weight: 500;
+}
+#gameRankLayer .my-rank-content .my-time{
+    font-size:24px;
+    font-weight: 500;
+}
+#gameRankLayer .today-rank-content{
+    margin-top:10px;
+    background: #fff;
+    padding:20px;
+    border-radius: 6px;
+}
+
+#gameRankLayer .today-rank-content h2{
+    font-size:24px;
+    font-weight: 500;
+}
+
 .rank-list {
     margin-top:20px;
     display: flex;
@@ -439,7 +467,24 @@ input:focus {
     grid-template-columns: 2fr 5fr 3fr;
     justify-content: space-between;
 }
-
+.rank-list li:nth-child(1){
+    background: red;
+}
+.rank-list li:nth-child(2){
+    background: blue;
+}   
+.rank-list li:nth-child(3){
+    background: green;
+}
+.rank-list li:nth-child(1) .rank-num{
+    color:white;
+}   
+.rank-list li:nth-child(2) .rank-num{
+    color:white;
+}
+.rank-list li:nth-child(3) .rank-num{
+    color:white;
+}
 .rank-list li .rank-score {
     text-align: right;
 }
@@ -479,6 +524,55 @@ input:focus {
 .logo img {
     max-width: 150px;
     height: auto;
+}
+/* guide */
+
+.guide-wrap .guide-map{
+    width:80%;
+    aspect-ratio: 1030 / 680;
+    margin:0 auto;
+}
+.guide-wrap .cursor {
+    visibility: hidden;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    /* 초기 위치 설정 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.guide-wrap .mark {
+    visibility: hidden;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    /* 초기 위치 설정 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes cursorMove {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes markCheck {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* game */
@@ -1061,28 +1155,4 @@ input:focus {
     font-size:24px;
     font-size:52px;
     font-weight: 700;
-}
-
-
-#gameRankLayer .my-rank-content{
-    background: #fff;
-    padding:20px;
-    border-radius: 6px;
-}
-
-#gameRankLayer .my-rank-content h2{
-    font-size:24px;
-    font-weight: 500;
-}
-
-#gameRankLayer .today-rank-content{
-    margin-top:10px;
-    background: #fff;
-    padding:20px;
-    border-radius: 6px;
-}
-
-#gameRankLayer .today-rank-content h2{
-    font-size:24px;
-    font-weight: 500;
 }

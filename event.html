@@ -269,6 +269,11 @@
                     const todayRank = gameRankLayer.querySelector('.today-rank');
                     const todayTime = gameRankLayer.querySelector('.today-time');
 
+                    //로컬스토리지에 랭킹, 닉네임, 타임 저장
+                    localStorage.setItem('ranking', result.ranking);
+                    localStorage.setItem('nickname', result.nickname);
+                    localStorage.setItem('time', finalTime);
+
                     //데이터 세팅
                     user.textContent = `${result.nickname}님의 게임결과`;
                     const minutes = Math.floor(totalSeconds / 60);
@@ -325,6 +330,7 @@
     
     // DOM 로드
     document.addEventListener('DOMContentLoaded', function() {
+        
         // 닉네임 저장 버튼 이벤트
         document.getElementById('submitNickname').addEventListener('click', async () => {
             const nickname = document.getElementById('nicknameInput').value;
@@ -363,7 +369,7 @@
                     // 닉네임 레이어 닫기
                     closeNicknameLayer();
                 } else {
-                    // 실패 시 닉네임 중복 알림 노출
+                    // 실패 시 닉네임 중복 메시지 노출
                     errorElement.style.display = 'block';
                 }
             } catch (error) {
@@ -393,7 +399,7 @@
             fetch(`https://{DOMAIN}/api/rank`)
                 .then(response => response.json())
                 .then(data => {
-                    data.slice(0, 9).forEach((item, index) => {
+                    data?.slice(0, 9).forEach((item, index) => {
                         const li = document.createElement('li');
                         li.innerHTML = `
                             <span class="rank-num">${index + 1}</span>

@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div id="page">
+<div id="page"  style="opacity:0.1;">
     <div id="fireworksContainer"></div>
     <section>
         <div class="main-container">
@@ -37,9 +37,9 @@
                 </div>
             </div>
             <div class="main-cont">
-                <button id="kakao-share-btn" class="btn-kakao-share mx-auto">카카오톡 공유하기</button>
+                <button id="kakao-share-btn" class="btn-kakao-share"><img class="img" src="/images/btn-kakao.png" alt="카카오톡 공유하기" /></button>
                 <div class="notice">
-                    <h2>이벤트 유의사항</h2>
+                    <p class="notice-title">이벤트 유의사항</p>
                     <ul>
                         <li>이벤트 기간은 12월 9일(월)부터 12월 31일(화)까지이며, 당첨자 발표는 1월 8일(수)에 문자로 
                             발송됩니다.</li>
@@ -83,10 +83,16 @@
 <div id="gameRuleLayer" class="layer-popup">
     <div class="dimm"></div>
     <div class="content">
-        <h2>게임 방법</h2>
-        <button id="close-rule" type="button" class="btn-style">
-            닫기
-        </button>
+        <div class="content-inner">
+            <button type="button" class="btn-close"><img class="img" src="/images/btn-close.png" alt="닫기"></button>
+            <h2 class="guide-title"><img class="img" src="/images/title-guide.png" alt="게임 방법" /></h2>
+            <p class="ghide-sub-text"><img class="img" src="/images/title-main-sub.png" alt="지도를 움직이고 확대해서 세계 속 SK에너지를 찾아보세요." /></p>
+            <div class="guide-wrap">
+                <div class="guide-map"><img class="img" src="/images/layer-map.png" alt="게임 방법 지도" /></div>
+                <span class="cursor"><img class="img" src="/images/icon-cursor.png" alt="손가락" /></span>
+                <span class="mark"><img class="img" src="/images/mark-o.png" alt="손가락" /></span>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -94,15 +100,18 @@
 <div id="gameRankLayer" class="layer-popup">
     <div class="dimm"></div>
     <div class="content">
-        <h2>오늘의 랭킹</h2>
-        <div class="rank-content">
-            <ul class="rank-list">
-                <!-- 랭킹 데이터  -->
-            </ul>
+        <div class="content-inner">
+            <button type="button" class="btn-close"><img class="img" src="/images/btn-close.png" alt="닫기"></button>
+            <div class="my-rank-content">
+                <p class="my-nickname"></p>
+                <div><span class="my-rank"></span> | <span class="my-time"></span></div>
+            </div>
+            <div class="rank-content">
+                <ul class="rank-list">
+                    <!-- 랭킹 데이터  -->
+                </ul>
+            </div>
         </div>
-        <button id="close-rank" type="button" class="btn-style">
-            닫기
-        </button>
     </div>
 </div>
 
@@ -121,7 +130,6 @@
         { nickname: "SK러버", timer: 160.22 },
         { nickname: "파워레인저", timer: 180.22 }
     ];
-
     
     document.addEventListener('DOMContentLoaded', () => {
         // 메인 상단 반짝이 효과
@@ -176,12 +184,34 @@
             }
         });
 
+        // 더미 로컬 스토리지
+        // localStorage.setItem('ranking', '1');
+        // localStorage.setItem('nickname', '고양이');
+        // localStorage.setItem('time', '2.05');
+
         //오늘의 랭킹 버튼 클릭
         document.querySelector('.btn-game-rank').addEventListener('click', function() {
             const rankList = document.querySelector('.rank-list');
-            rankList.innerHTML = ''; // 기존 데이터 초기화
-            openModal('gameRankLayer');
+            const myRankContent = document.querySelector('.my-rank-content');
+            
+            // 로컬스토리지 my-nickname, my-rank, my-time 가져와서 표시
+            const nickname = localStorage.getItem('nickname');
+            const ranking = localStorage.getItem('ranking');
+            const time = localStorage.getItem('time');
 
+            // 모든 값이 존재하면 .active 클래스 추가
+            if (nickname && ranking && time) {
+                myRankContent.querySelector('.my-nickname').textContent = nickname;
+                myRankContent.querySelector('.my-rank').textContent = ranking;
+                myRankContent.querySelector('.my-time').textContent = time;
+                myRankContent.classList.add('active');
+            }
+
+            rankList.innerHTML = ''; // 기존 데이터 초기화
+
+            // 랭킹 팝업 표시
+            openModal('gameRankLayer');
+            
             // 테스트용 데이터 사용
             mockRankData.forEach((item, index) => {
                 const li = document.createElement('li');
@@ -197,7 +227,7 @@
             fetch(`https://{DOMAIN}/api/rank`)
                 .then(response => response.json())
                 .then(data => {
-                    data.slice(0, 9).forEach((item, index) => {
+                    data?.slice(0, 9).forEach((item, index) => {
                         const li = document.createElement('li');
                         li.innerHTML = `
                             <span class="rank-num">${index + 1}</span>
@@ -212,6 +242,7 @@
                 });
             */
         });
+
         //카카오 초기화
         Kakao.init('a7fc4bbe5d956fcc2525283cd9daae87'); //key 변경 요망
 

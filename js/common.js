@@ -4,6 +4,22 @@ document.addEventListener('DOMContentLoaded', function() {
     if (btnGameRule) {
         btnGameRule.addEventListener('click', function() {
             openModal('gameRuleLayer');
+            // 가이드 모션 실행
+            const cursor = document.querySelector('.cursor');
+            const mark = document.querySelector('.mark');
+
+            cursor.style.visibility = 'visible';
+            cursor.style.animation = 'cursorMoveToCenter 1s ease-in-out forwards';
+
+            setTimeout(() => {
+                cursor.style.animation = 'cursorClick 0.5s ease-in-out forwards';
+            }, 1000);
+
+            setTimeout(() => {
+                cursor.style.visibility = 'hidden';
+                mark.style.visibility = 'visible';
+                mark.style.animation = 'markCheck 1s ease-in-out forwards';
+            }, 1500);
         });
     }
 
