@@ -91,7 +91,7 @@ function createFirework() {
     
     // 랜덤 위치 설정
     const x = Math.random() * (Math.min(window.innerWidth, 480) - 20);
-    const y = Math.random() * 280;
+    const y = Math.random() * 180;
     firework.style.left = x + 'px';
     firework.style.top = y + 'px';
 
@@ -154,7 +154,7 @@ function startFireworks() {
         if (document.getElementById('fireworksContainer').children.length < 8) {
             createFirework();
         }
-        setTimeout(createRandomFirework, Math.random() * 500);
+        setTimeout(createRandomFirework, Math.random() * 300);
     };
     createRandomFirework();
 }
