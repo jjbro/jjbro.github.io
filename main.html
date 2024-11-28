@@ -86,7 +86,8 @@
         <div class="content-inner">
             <button type="button" class="btn-close"><img class="img" src="/images/btn-close.png" alt="닫기"></button>
             <h2 class="guide-title"><img class="img" src="/images/title-guide.png" alt="게임 방법" /></h2>
-            <p class="ghide-sub-text"><img class="img" src="/images/title-main-sub.png" alt="지도를 움직이고 확대해서 세계 속 SK에너지를 찾아보세요." /></p>
+            <!-- <p class="ghide-sub-text"><img class="img" src="/images/title-main-sub.png" alt="지도를 움직이고 확대해서 세계 속 SK에너지를 찾아보세요." /></p> -->
+            <p class="guide-sub-text">지도를 움직이고 확대해서<br />세계 속 <strong>SK에너지</strong>를 찾아보세요.</p>
             <div class="guide-wrap">
                 <div class="guide-map"><img class="img" src="/images/layer-map.png" alt="게임 방법 지도" /></div>
                 <span class="cursor"><img class="img" src="/images/icon-cursor.png" alt="손가락" /></span>
@@ -104,7 +105,7 @@
             <button type="button" class="btn-close"><img class="img" src="/images/btn-close.png" alt="닫기"></button>
             <div class="my-rank-content">
                 <p class="my-nickname"></p>
-                <div><span class="my-rank"></span> | <span class="my-time"></span></div>
+                <div class="my-rank-wrap"><span class="my-rank"></span> <span class="divider">|</span> <span class="my-time"></span></div>
             </div>
             <div class="rank-content">
                 <ul class="rank-list">
@@ -135,7 +136,7 @@
         // 메인 상단 반짝이 효과
         startFireworks();
 
-        //사번 레이어 표시
+        //임직원 사번 레이어 표시
         //openModal('empnoLayer');
 
         // 대문자 변환을 위한 이벤트 리스너 추가
@@ -185,10 +186,16 @@
         });
 
         // 더미 로컬 스토리지
-        // localStorage.setItem('ranking', '1');
+        //localStorage.setItem('ranking', '3,211');
         // localStorage.setItem('nickname', '고양이');
         // localStorage.setItem('time', '2.05');
 
+        // 쉼표 찍는 함수
+        function formatNumber(number) {
+            // 쉼표 제거 후 포맷팅
+            const numWithoutCommas = number.toString().replace(/,/g, '');
+            return numWithoutCommas.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
         //오늘의 랭킹 버튼 클릭
         document.querySelector('.btn-game-rank').addEventListener('click', function() {
             const rankList = document.querySelector('.rank-list');
@@ -202,8 +209,8 @@
             // 모든 값이 존재하면 .active 클래스 추가
             if (nickname && ranking && time) {
                 myRankContent.querySelector('.my-nickname').textContent = nickname;
-                myRankContent.querySelector('.my-rank').textContent = ranking;
-                myRankContent.querySelector('.my-time').textContent = time;
+                myRankContent.querySelector('.my-rank').textContent = formatNumber(ranking) + '위';
+                myRankContent.querySelector('.my-time').textContent = time + '초';
                 myRankContent.classList.add('active');
             }
 

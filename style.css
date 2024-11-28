@@ -428,68 +428,111 @@ input:focus {
 
 /* 오늘의 랭킹 */
 
-
-#gameRankLayer .my-rank-content{
-    display:none;
+#gameRankLayer .content{
+    background:url('/images/bg-rank-layer.jpg') repeat 0 0;
+    background-size: contain;
 }
-#gameRankLayer .my-rank-content.active{
+#gameRankLayer .content .content-inner{
+    padding:9px 5px 20px;
+}
+.my-rank-content{
+    display:none;
+    background:url('/images/bg-my-rank.png') no-repeat center;
+    background-size: contain;
+    width:97%;
+    max-width:327px;
+    margin:0 auto;
+    aspect-ratio: 1075 / 432;
+    padding: 12% 0 0 43%;
+    
+}
+.my-rank-content.active{
     display:block;
 }
-#gameRankLayer .my-rank-content .my-nickname{
-    font-size:24px;
-    font-weight: 500;
+.my-rank-content .my-rank-wrap{
+    display:flex;
+    align-items: center;
+    margin-top:5px;
+    gap:20px;
 }
-#gameRankLayer .my-rank-content .my-rank{
-    font-size:24px;
-    font-weight: 500;
+.my-rank-content .my-nickname {
+    font-size: 8vw;
+    max-width: 180px;
+    font-weight: 700;
+    overflow: hidden;
 }
-#gameRankLayer .my-rank-content .my-time{
-    font-size:24px;
-    font-weight: 500;
+
+.my-rank-content .divider{
+    font-size:4.5vw;
 }
-#gameRankLayer .today-rank-content{
+.my-rank-content .my-rank {
+    font-size: 4.5vw;
+    font-weight: 500;
+    overflow: hidden;
+}
+.my-rank-content .my-time {
+    font-size: 4.5vw;
+    font-weight: 500;
+    overflow: hidden;
+}
+.my-rank-content + .rank-content{
     margin-top:10px;
-    background: #fff;
-    padding:20px;
-    border-radius: 6px;
 }
 
-#gameRankLayer .today-rank-content h2{
-    font-size:24px;
-    font-weight: 500;
-}
-
-.rank-list {
+.rank-content{
     margin-top:20px;
+    padding:0 2.3%
+}
+.rank-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 2px;
+    max-width:321px;
+    margin:0 auto;
 }
 .rank-list li{
     display: grid;
     grid-template-columns: 2fr 5fr 3fr;
     justify-content: space-between;
+    padding:13px 0;
+    background:url('/images/bg-rank.png') no-repeat 0 0;
+    background-size: contain;
+    height:44px;
+    margin-left:3px;
 }
 .rank-list li:nth-child(1){
-    background: red;
+    background:url('/images/bg-rank-1.png') no-repeat 0 0;
+    background-size: contain;
 }
 .rank-list li:nth-child(2){
-    background: blue;
+    background:url('/images/bg-rank-2.png') no-repeat 0 0;
+    background-size: contain;
 }   
 .rank-list li:nth-child(3){
-    background: green;
+    background:url('/images/bg-rank-3.png') no-repeat 0 0;
+    background-size: contain;
 }
-.rank-list li:nth-child(1) .rank-num{
-    color:white;
-}   
-.rank-list li:nth-child(2) .rank-num{
-    color:white;
-}
-.rank-list li:nth-child(3) .rank-num{
-    color:white;
+
+.rank-list li .rank-num {
+    padding-left:18px;
+    font-size:13px;
+    font-weight: 500;
 }
 .rank-list li .rank-score {
     text-align: right;
+    padding-right:20px;
+}
+/* 특정 뷰포트 크기 이상에서는 고정된 크기로 변경 */
+@media (min-width: 390px) {
+    .my-rank-content{
+        padding:40px 0 0 144px;
+    }
+    .my-rank-content .my-nickname {
+        font-size: 32px;
+    }
+    .my-rank-content .my-rank, .my-rank-content .divider, .my-rank-content .my-time {
+        font-size: 18px;
+    }
 }
 
 /* employee */
@@ -529,43 +572,63 @@ input:focus {
     height: auto;
 }
 /* guide */
-
-.guide-wrap .guide-map{
-    width:80%;
-    aspect-ratio: 1030 / 680;
+.guide-title{
+    width:52%;
     margin:0 auto;
+}
+.guide-sub-text{
+    text-align: center;
+    margin-top:13px;
+    font-size:16px;
+    font-weight: 500;
+}
+.guide-sub-text strong{
+    color:#ea002c;
+}
+.guide-wrap .guide-map{
+    width:90%;
+    aspect-ratio: 1261 / 955;
+    margin:12px auto 0;
 }
 .guide-wrap .cursor {
     visibility: hidden;
     position: absolute;
-    width: 50px;
-    height: 50px;
-    /* 초기 위치 설정 */
-    top: 50%;
+    width:15%;
+    aspect-ratio: 133 / 165;
+    top: 57%;
     left: 50%;
     transform: translate(-50%, -50%);
+    animation: cursorMoveToCenter 1s ease-in-out 1s forwards;
 }
 
 .guide-wrap .mark {
     visibility: hidden;
     position: absolute;
-    width: 50px;
-    height: 50px;
-    /* 초기 위치 설정 */
-    top: 50%;
-    left: 50%;
+    width: 16%;
+    aspect-ratio: 184 / 157;
+    top: 55%;
+    left: 48%;
     transform: translate(-50%, -50%);
 }
 
-@keyframes cursorMove {
+@keyframes cursorMoveToCenter {
     0% {
-        transform: translate(-50%, -50%) scale(1);
-    }
-    50% {
-        transform: translate(-50%, -50%) scale(1.2);
+        transform: translate(100%, 100%);
     }
     100% {
-        transform: translate(-50%, -50%) scale(1);
+        transform: translate(0%, 0%);
+    }
+}
+
+@keyframes cursorClick {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1);
     }
 }
 
@@ -1159,3 +1222,4 @@ input:focus {
     font-size:52px;
     font-weight: 700;
 }
+

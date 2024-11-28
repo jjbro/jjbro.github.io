@@ -8,18 +8,24 @@ document.addEventListener('DOMContentLoaded', function() {
             const cursor = document.querySelector('.cursor');
             const mark = document.querySelector('.mark');
 
-            cursor.style.visibility = 'visible';
-            cursor.style.animation = 'cursorMoveToCenter 1s ease-in-out forwards';
+            // 이미 마크가 보이는 경우 무시
+            if(mark.style.visibility === 'visible') {
+                return false;
+            }
 
             setTimeout(() => {
-                cursor.style.animation = 'cursorClick 0.5s ease-in-out forwards';
+                cursor.style.animation = 'cursorMoveToCenter 1s ease-in-out 1s forwards';
+                cursor.style.visibility = 'visible';
             }, 1000);
+            setTimeout(() => {
+                cursor.style.animation = 'cursorClick 0.5s ease-in-out forwards';
+            }, 2000);
 
             setTimeout(() => {
                 cursor.style.visibility = 'hidden';
                 mark.style.visibility = 'visible';
-                mark.style.animation = 'markCheck 1s ease-in-out forwards';
-            }, 1500);
+                mark.style.animation = 'markCheck 0.3s ease-in-out forwards';
+            }, 2500);
         });
     }
 
@@ -77,6 +83,7 @@ function closeModal(modalId) {
     document.body.style.overflow = ''; // 스크롤 복구
 }
 
+// 파티클
 function createFirework() {
     const container = document.getElementById('fireworksContainer');
     const firework = document.createElement('div');
@@ -141,7 +148,7 @@ function createFirework() {
     }, 1000);
 }
 
-// 주기적으로 폭죽 생성
+// 주기적으로 파티클 생성
 function startFireworks() {
     const createRandomFirework = () => {
         if (document.getElementById('fireworksContainer').children.length < 8) {
