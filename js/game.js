@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 기본 요소 선택
     const container = document.querySelector('.game-container');
     const background = document.querySelector('.background');
-    const zoomButtons = document.querySelectorAll('.zoom-btn');
     const minimapViewport = document.querySelector('.minimap-viewport');
 
     let currentScale = 1;

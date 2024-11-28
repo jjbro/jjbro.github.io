@@ -10,12 +10,12 @@
         <link rel="stylesheet" href="style.css">
     </head>
 <body>
-<div id="page">
+<div id="page" class="game-page">
     <section class="layout-section">
         <div class="game-container">
             <div class="background">
                 <span class="target item1" data-target="item1" data-text="전기차 배터리 셀(Battery Cell)" data-desc="더 빠르게 충전되고, 더 안전하며, 더 오래가는 '초고속 배터리' 2024 최고 혁신상 수상을 축하합니다"></span>
-                <!-- <span class="target item2" data-target="item2" data-text="LNG(천연가스)선" data-desc="국내 최대 민간 LNG 사업자인 SK이노베이션은 개발부터 운송·소비까지 LNG 밸류체인을 구축하였습니다" ></span>
+                <span class="target item2" data-target="item2" data-text="LNG(천연가스)선" data-desc="국내 최대 민간 LNG 사업자인 SK이노베이션은 개발부터 운송·소비까지 LNG 밸류체인을 구축하였습니다" ></span>
                 <span class="target item3" data-target="item3" data-text="ZIC" data-desc="글로벌 No.1 윤활기유 '유베이스' 개발 및 이를 기반으로 한 고품질 엔진오일 ZIC를 생산하고 있습니다"></span>
                 <span class="target item4" data-target="item4" data-text="슈퍼팔트" data-desc="SK에너지는 국내 최초로 고품질, 고기능성 아스팔트인 '슈퍼 팔트'를 개발하는 등 전 세계 아스팔트 시장 선도를 목표로 연구개발을 지속하고 있습니다"></span>
                 <span class="target item5" data-target="item5" data-text="폴사인" data-desc="62년간 대한민국 에너지 역사와 함께해 온 SK이노베이션은 다가올 전동화 시대를 위해 '전기 밸류체인'을 구축하고 있습니다"></span>
@@ -23,14 +23,13 @@
                 <span class="target item7" data-target="item7" data-text="SAF" data-desc="SK에너지, 국내 최초 지속가능 항공유 전용 생산라인을 확보하였습니다"></span>
                 <span class="target item8" data-target="item8" data-text="EV" data-desc="SK배터리 아메리카 미국 공장, 현대차 탑재 배터리 양산을 시작합니다"></span>
                 <span class="target item9" data-target="item9" data-text="ESS" data-desc="SK엔무브의 액침 냉각 기술을 적용한 '불타지 않는 ESS' 세계 최초 개발하였습니다"></span>
-                <span class="target item10" data-target="item10" data-text="아이오딘" data-desc="SK엔무브, '차세대 차량용 냉매 핵심 원료' 아이오딘 안정적 공급망 확보에 힘쓰고 있습니다"></span> -->
+                <span class="target item10" data-target="item10" data-text="아이오딘" data-desc="SK엔무브, '차세대 차량용 냉매 핵심 원료' 아이오딘 안정적 공급망 확보에 힘쓰고 있습니다"></span>
             </div>
             <a href="/main.html" class="btn-home"><img src="/images/btn-home.png" alt="홈으로"></a>
+            <p class="found-target"><strong class="found-count">0</strong>/10</p>
             <div class="timer">00:00</div>
-            <div class="zoom-controls">
-                <button class="zoom-btn" id="zoomIn">+</button>
-                <button class="zoom-btn" id="zoomOut">-</button>
-            </div>
+            <button class="zoom-btn" id="zoomIn"><img class="img" src="/images/btn-zoom-in.png" alt="확대" /></button>
+            <button class="zoom-btn" id="zoomOut"><img class="img" src="/images/btn-zoom-out.png" alt="축소" /></button>
             <div class="minimap">
                 <div class="minimap-content">
                     <div class="minimap-viewport" />
@@ -47,11 +46,10 @@
         </div>
 
         <div class="target-list">
-            <p class="found-target">찾은 아이템 <strong class="found-count">0</strong>/10</p>
             <div class="swiper">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" data-target="item1">1</div>
-                    <!-- <div class="swiper-slide" data-target="item2">2</div>
+                    <div class="swiper-slide" data-target="item2">2</div>
                     <div class="swiper-slide" data-target="item3">3</div>
                     <div class="swiper-slide" data-target="item4">4</div>
                     <div class="swiper-slide" data-target="item5">5</div>
@@ -59,7 +57,7 @@
                     <div class="swiper-slide" data-target="item7">7</div>
                     <div class="swiper-slide" data-target="item8">8</div>
                     <div class="swiper-slide" data-target="item9">9</div>
-                    <div class="swiper-slide" data-target="item10">10</div> -->
+                    <div class="swiper-slide" data-target="item10">10</div>
                 </div>
             </div>
         </div>
