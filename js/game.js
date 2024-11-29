@@ -425,8 +425,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Swiper 초기화
     const swiper = new Swiper('.swiper', {
-        slidesPerView: 4,
-        spaceBetween: 20,
+        slidesPerView: 4.5,
+        spaceBetween: 10,
         resistance: true,
         resistanceRatio: 0,
         slideToClickedSlide: true

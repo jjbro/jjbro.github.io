@@ -673,7 +673,6 @@ input:focus {
     overflow: hidden;
 }
 .game-container {
-    
     overflow: hidden;
     overscroll-behavior: none;
     /* width: min(100vw - 20px, 480px); */
@@ -750,6 +749,7 @@ input:focus {
     font-size:32px;
     font-weight: 900;
     color:#fff;
+    letter-spacing: 2px;
 }
 .found-count{
     color:#ffd417;
@@ -852,10 +852,22 @@ input:focus {
 /* 스와이퍼 관련 스타일 추가 */
 .target-list {
     position: fixed;
-    bottom: 20px;
+    width: min(100vw - 8px, 480px);
+    height:17svh;
+    background: #fff;
+    bottom: 4px;
     left: 50%;
     transform: translateX(-50%);
-    width: min(100vw - 20px, 480px);
+}
+.target-list::before{
+    content:'';
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:4px;
+    background:url('/images/deco-embo.png') repeat 0 0;
+    background-size: 100% 100%;
 }
 
 .swiper {
@@ -865,24 +877,26 @@ input:focus {
 }
 
 .swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    cursor: pointer;
     transition: all 0.3s ease;
-    aspect-ratio: 1 / 1;
-    background-color: #ffa500;
-    max-width:25%;
+    max-width:20%;
+    position:relative;
 }
 
 .swiper-slide.found {
     text-decoration: line-through;
     background-color: #ccc;
 }
-
+.item-img-yellow, .item-img-red {
+    width: calc(222 / 1280 * 100%);
+    aspect-ratio: 222 / 281;
+    opacity: 0;
+    position:absolute;
+}
+.item-img-on{
+    width: calc(242 / 1280 * 100%);
+    aspect-ratio: 242 / 306;
+    opacity: 0;
+}
 @keyframes slideUp {
     from {
         transform: translate(-50%, 100%);
