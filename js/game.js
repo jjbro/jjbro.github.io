@@ -52,13 +52,27 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetClass = this.classList[1];
             const targetSlide = document.querySelector(`.swiper-slide[data-target="${targetClass}"]`);
             if (targetSlide) {
+                
                 targetSlide.classList.add('found');
+                // 추가된 코드: 이미지 전환 애니메이션
+                const itemImgYellow = targetSlide.querySelector('.item-img-yellow');
+                const itemImgRed = targetSlide.querySelector('.item-img-red');
+                if (itemImgYellow) {
+                    itemImgYellow.style.animation = 'peelOff 1s ease-out forwards';
+                }
+                
             }
         });
     });
 
     // 줌 인 버튼
     document.getElementById('zoomIn').addEventListener('click', () => {
+        const zoomInButton = document.getElementById('zoomIn');
+        zoomInButton.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+            zoomInButton.style.transform = 'scale(1)';
+        }, 100);
+
         if (currentZoomIndex < zoomLevels.length - 1) {
             currentZoomIndex++;
             updateZoom(zoomLevels[currentZoomIndex]);
@@ -66,6 +80,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     // 줌 아웃 버튼
     document.getElementById('zoomOut').addEventListener('click', () => {
+        const zoomOutButton = document.getElementById('zoomOut');
+        zoomOutButton.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+            zoomOutButton.style.transform = 'scale(1)';
+        }, 100);
+
         if (currentZoomIndex > 0) {
             currentZoomIndex--;
             updateZoom(zoomLevels[currentZoomIndex]);
@@ -91,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         const target = e.target.closest('.target');
-        
         
         if (target) {
             // 이미 찾은 타겟인 경우 무시
@@ -158,6 +177,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 500);
         }
     });
+
+    //아이템 레이어 닫기 이벤트
+    const itemLayerDimm = itemLayer.querySelector('.dimm');
+    const itemLayerClose = itemLayer.querySelector('.btn-close');
+    itemLayerDimm.addEventListener('click', closeItemLayer);
+    itemLayerClose.addEventListener('click', closeItemLayer);
+
+    // 아이템 레이어 닫기
+    function closeItemLayer() {
+        
+        itemLayer.classList.remove('active');
+
+        // 애니메이션 적용
+        const targetClass = itemLayer.querySelector('.bg-img').classList[1];
+        const targetSlide = document.querySelector(`.swiper-slide[data-target="${targetClass}"]`);
+        const itemImgRed = targetSlide.querySelector('.item-img-red');
+        if (itemImgRed) {
+            itemImgRed.style.animation = 'peelOff 0.3s ease-out forwards';
+        }
+    }
 
     // 줌 업데이트 함수
     function updateZoom(scale) {
@@ -398,6 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (progress < 1) {
                 requestAnimationFrame(animate);
             } else {
+                isPanoramaPlaying = false;
                 timerInterval = setInterval(updateTimer, 1000);
                 introDimm.style.display = 'none';
                 startTime = Date.now();
