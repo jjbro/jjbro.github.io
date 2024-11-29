@@ -3,19 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>숨은 에너지 찾기</title>
+    <title>sk이노베이션 숨은 에너지 찾기</title>
     <!-- 스타일 -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <div id="page">
     <div id="fireworksContainer"></div>
     <section>
         <div class="main-container">
             <div class="main-top">
                 <p class="main-title"><img class="img" src="/images/title-main.png" alt="sk이노베이션 숨은 에너지 찾기" /></p>
-                <p class="main-sub-title"><img class="img" src="/images/title-main-sub.png" alt="전 세계 속 SK의 숨은 에너지 10개 찾고 옥스포드 블록팩 받자!" /></p>
+                <p class="main-sub-title"><img class="img" src="/images/title-main-sub.png" alt="전 세계 속 SKI의 숨은 에너지 10개 찾고 옥스포드 블록팩 받자!" /></p>
                 <div class="main-img"><img class="img" src="/images/img-main.png" alt="에너지 찾기" /></div>
                 <div class="btn-wrap">
                     <a href="/event.html" class="btn-game-start"><img class="img" src="/images/btn-game-start.png" alt="게임시작"></a>
@@ -135,7 +134,7 @@
         // 메인 상단 반짝이 효과
         startFireworks();
 
-        //임직원 사번 레이어 표시
+        //임직원 사번입력 레이어팝업 오픈
         openModal('empnoLayer');
 
         // 대문자 변환을 위한 이벤트 리스너 추가
@@ -191,10 +190,10 @@
 
         // 쉼표 찍는 함수
         function formatNumber(number) {
-            // 쉼표 제거 후 포맷팅
             const numWithoutCommas = number.toString().replace(/,/g, '');
             return numWithoutCommas.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
+        
         //오늘의 랭킹 버튼 클릭
         document.querySelector('.btn-game-rank').addEventListener('click', function() {
             const rankList = document.querySelector('.rank-list');
@@ -205,7 +204,7 @@
             const ranking = localStorage.getItem('ranking');
             const time = localStorage.getItem('time');
 
-            // 모든 값이 존재하면 .active 클래스 추가
+            // 스토리지에 내 정보 존재하면 표시
             if (nickname && ranking && time) {
                 myRankContent.querySelector('.my-nickname').textContent = nickname;
                 myRankContent.querySelector('.my-rank').textContent = formatNumber(ranking) + '위';
@@ -215,7 +214,7 @@
 
             rankList.innerHTML = ''; // 기존 데이터 초기화
 
-            // 랭킹 팝업 표시
+            // 랭킹 레이어팝업 표시
             openModal('gameRankLayer');
             
             // 테스트용 데이터 사용
@@ -257,8 +256,8 @@
             Kakao.Share.sendDefault({
                 objectType: 'feed',
                 content: {
-                    title: 'SK찾아 세계속으로',
-                    description: '전 세계 속 SK의 숨은 에너지 10개 찾고 레고 블록팩 받자!',
+                    title: 'sk이노베이션 숨은 에너지 찾기',
+                    description: '전 세계 속 SKI의 숨은 에너지 10개 찾고 옥스포드 블록팩 받자!',
                     imageUrl: `${window.location.href}/images/background.jpg`,
                     link: {
                         mobileWebUrl: window.location.href,

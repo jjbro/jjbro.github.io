@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <title>숨은 에너지 찾기</title>
-        <!-- Swiper CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-        <!-- 스타일 -->
-        <link rel="stylesheet" href="style.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>sk이노베이션 숨은 에너지 찾기</title>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- 스타일 -->
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
 <div id="page" class="game-page">
     <section class="layout-section">
@@ -147,29 +147,21 @@
     </div>
 </div>
 
-<!-- 오늘의 랭킹 레이어 -->
+<!-- 오늘의 랭킹 -->
 <div id="gameRankLayer" class="layer-popup">
     <div class="dimm"></div>
     <div class="content">
-        <div class="my-rank-content">
-            <h2>내 순위</h2>
-            <p class="today-nickname"></p>
-            <div>
-                <p class="rank-text"><span class="today-rank">2,233</span>위</p>
-                <p class="today-time"></p>
+        <div class="content-inner">
+            <button type="button" class="btn-close"><img class="img" src="/images/btn-close.png" alt="닫기"></button>
+            <div class="my-rank-content">
+                <p class="my-nickname"></p>
+                <div class="my-rank-wrap"><span class="my-rank"></span> <span class="divider">|</span> <span class="my-time"></span></div>
             </div>
-        </div>
-        <div class="today-rank-content">
-            <h2>오늘의 랭킹</h2>
             <div class="rank-content">
                 <ul class="rank-list">
                     <!-- 랭킹 데이터  -->
                 </ul>
             </div>
-            
-            <button id="close-rank" type="button" class="btn-style">
-                닫기
-            </button>
         </div>
     </div>
 </div>
@@ -379,9 +371,26 @@
         //오늘의 랭킹 버튼 클릭
         document.querySelector('.btn-game-rank').addEventListener('click', function() {
             const rankList = document.querySelector('.rank-list');
-            rankList.innerHTML = ''; // 기존 데이터 초기화
-            openModal('gameRankLayer');
+            const myRankContent = document.querySelector('.my-rank-content');
+            
+            // 로컬스토리지 my-nickname, my-rank, my-time 가져와서 표시
+            const nickname = localStorage.getItem('nickname');
+            const ranking = localStorage.getItem('ranking');
+            const time = localStorage.getItem('time');
 
+            // 스토리지에 내 정보 존재하면 표시
+            if (nickname && ranking && time) {
+                myRankContent.querySelector('.my-nickname').textContent = nickname;
+                myRankContent.querySelector('.my-rank').textContent = formatNumber(ranking) + '위';
+                myRankContent.querySelector('.my-time').textContent = time + '초';
+                myRankContent.classList.add('active');
+            }
+
+            rankList.innerHTML = ''; // 기존 데이터 초기화
+
+            // 랭킹 레이어팝업 표시
+            openModal('gameRankLayer');
+            
             // 테스트용 데이터 사용
             mockRankData.forEach((item, index) => {
                 const li = document.createElement('li');
@@ -421,8 +430,8 @@
             Kakao.Share.sendDefault({
                 objectType: 'feed',
                 content: {
-                    title: 'SK찾아 세계속으로',
-                    description: '전 세계 속 SK의 숨은 에너지 10개 찾고 레고 블록팩 받자!',
+                    title: 'sk이노베이션 숨은 에너지 찾기',
+                    description: '전 세계 속 SKI의 숨은 에너지 10개 찾고 옥스포드 블록팩 받자!',
                     imageUrl: `${window.location.href}/images/background.jpg`,
                     link: {
                         mobileWebUrl: window.location.href,
