@@ -31,9 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // 파노라마 관련 변수 추가
     let isPanoramaPlaying = false;
-    const panoramaDuration = 3000; // 이동 시간
-    const panoramaDistance = -1000; // 이동 거리
-
+    
     // 타이머 관련 변수 추가
     const timerElement = document.querySelector('.timer');
     let startTime;
@@ -345,11 +343,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 파노라마 애니메이션 함수
     function playPanorama() {
+        const panoramaDuration = 3000; // 이동 시간
+        const panoramaDistance = -300; // 이동 거리
+
         if (isPanoramaPlaying) return;
         isPanoramaPlaying = true;
 
-        const panoramaStartTime = Date.now();  // 파노라마용 시작 시간
+        const introDimm = document.querySelector('.intro-dimm');
+        const introContent = document.querySelector('.intro-content');
+        const panoramaStartTime = Date.now();
         const startX = 0;
+
+        // 카운트다운 함수
+        function showCountdown(number) {
+            introContent.textContent = number;
+            introContent.style.opacity = '1';
+            setTimeout(() => {
+                introContent.style.opacity = '0';
+            }, 800); // 0.8초 동안 표시 후 페이드아웃
+        }
+
+        // 카운트다운 시작
+        showCountdown('3');
+        setTimeout(() => showCountdown('2'), 1000);
+        setTimeout(() => showCountdown('1'), 2000);
+        setTimeout(() => {
+            showCountdown('START');
+            setTimeout(() => {
+                introContent.style.display = 'none';
+            }, 800);
+        }, 3000);
 
         function animate() {
             const elapsed = Date.now() - panoramaStartTime;
@@ -365,8 +388,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // 경계 제한 계산
             const containerRect = container.getBoundingClientRect();
             const backgroundRect = background.getBoundingClientRect();
-            const minX = containerRect.width - backgroundRect.width;
-            
+            // const minX = containerRect.width - backgroundRect.width;
+            const minX = (containerRect.width - backgroundRect.width) / 2;
+
             currentX = Math.max(minX, Math.min(0, newX));
             background.style.transform = `translate(${currentX}px, ${currentY}px)`;
             updateMinimapViewport();
@@ -374,15 +398,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (progress < 1) {
                 requestAnimationFrame(animate);
             } else {
-                isPanoramaPlaying = false;
-                // 이미 구한 containerRect와 backgroundRect를 사용하여 중앙 위치 계산
-                currentX = (containerRect.width - backgroundRect.width) / 2 + 75;
-                currentX = Math.max(minX, Math.min(0, currentX));
-                
-                background.style.transform = `translate(${currentX}px, ${currentY}px)`;
-                updateMinimapViewport();
-                startTime = Date.now();
                 timerInterval = setInterval(updateTimer, 1000);
+                introDimm.style.display = 'none';
+                startTime = Date.now();
             }
         }
 
