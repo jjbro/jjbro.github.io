@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const itemImgOn = targetSlide.querySelector('.item-img-on');
         if (itemImgRed) {
             itemImgRed.style.animation = 'peelOff 0.3s ease-out forwards';
-            itemImgOn.classList.add('check');
+            itemImgOn.style.opacity = '1';
         }
     }
 
