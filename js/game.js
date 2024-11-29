@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 파노라마 애니메이션 함수
     function playPanorama() {
         const panoramaDuration = 3000; // 이동 시간
-        const panoramaDistance = -300; // 이동 거리
+        const panoramaDistance = -320; // 이동 거리
 
         if (isPanoramaPlaying) return;
         isPanoramaPlaying = true;
