@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const background = document.querySelector('.background');
     const minimapViewport = document.querySelector('.minimap-viewport');
 
+    //아이템 레이어
+    const itemLayer = document.getElementById('itemLayer');
+    const itemImg = itemLayer.querySelector('.bg-img');
+    // const itemTitle = itemLayer.querySelector('.item-title');
+    const itemDesc = itemLayer.querySelector('.item-desc');
+
     let currentScale = 1;
     let currentX = 0;
     let currentY = 0;
@@ -78,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('touchmove', drag, { passive: false });
     window.addEventListener('touchend', stopDragging, { passive: false });
 
-    // 클릭 이벤트 핸들러 수정
+    // 지도클릭 이벤트
     background.addEventListener('click', function(e) {
         // 파노라마가 진행 중이면 클릭 무시
         if (isPanoramaPlaying) {
@@ -87,11 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         const target = e.target.closest('.target');
-        const targetInfo = document.querySelector('.target-info');
-        const targetImg = targetInfo.querySelector('.bg-img');
-        const targetName = targetInfo.querySelector('.name');
-        // const targetCountry = targetInfo.querySelector('.country');
-        const targetDesc = targetInfo.querySelector('.desc');
+        
         
         if (target) {
             // 이미 찾은 타겟인 경우 무시
@@ -99,13 +101,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            // target-info 업데이트
-            targetName.textContent = target.dataset.text;
+            // 아이템 레이어 업데이트
+            // itemTitle.textContent = target.dataset.text;
             // targetCountry.textContent = target.dataset.country;
-            targetDesc.textContent = target.dataset.desc;
-            targetImg.className = 'bg-img';
-            targetImg.classList.add(target.dataset.target);
-            targetInfo.style.visibility = 'visible';
+            itemImg.className = 'bg-img';
+            itemImg.classList.add(target.dataset.target);
+            itemDesc.textContent = target.dataset.desc;
+            
+            setTimeout(() => {
+                openModal('itemLayer');
+            }, 500);
             
             // 숨은 그림을 찾은 경우의 나머지 로직
             const targetClass = target.classList[1];
@@ -274,10 +279,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isDragging) return;
         
         e.preventDefault();
-        
-        // target-info 숨기기
-        const targetInfo = document.querySelector('.target-info');
-        targetInfo.style.visibility = 'hidden';
         
         let clientX, clientY;
         if (e.type === 'mousemove') {

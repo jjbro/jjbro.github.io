@@ -37,14 +37,6 @@
             </div>
         </div>
 
-        <div class="target-info">
-            <span class="bg-img"></span>
-            <div class="text-box">
-                <p><span class="name"></span></p>
-                <p class="desc"></p>
-            </div>
-        </div>
-
         <div class="target-list">
             <div class="swiper">
                 <div class="swiper-wrapper">
@@ -138,7 +130,7 @@
         <p class="user">닉네임 님의 게임 결과</p>
         <p class="time">3분 20초</p>
         <p class="rank-text">나의 순위 : <span class="rank">2,233</span>위</p>
-        <button class="btn-game-rank"><img class="img" src="/images/btn-today-rank.png" alt="오늘의 랭킹 확인"></button>
+        <button class="btn-game-rank">오늘의 랭킹 확인</button>
     </div>
     <div class="result-bottom">
         <button id="kakao-share-btn" class="btn-kakao-share mx-auto">카카오톡 공유하기</button>
@@ -166,6 +158,18 @@
     </div>
 </div>
 
+<!-- 아이템 레이어 -->    
+<div id="itemLayer" class="layer-popup">
+    <div class="dimm"></div>
+    <div class="content">
+        <div class="content-inner">
+            <button type="button" class="btn-close"><img class="img" src="/images/btn-close.png" alt="닫기"></button>
+            <div class="bg-img"></div>
+            <!-- <p><span class="item-title"></span></p> -->
+            <p class="item-desc"></p>
+        </div>
+    </div>
+</div>
 
 <script src="js/common.js"></script>
 <script src="js/game.js"></script>
