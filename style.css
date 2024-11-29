@@ -669,7 +669,7 @@ input:focus {
 .layout-section{
     border:3px solid #ffd70c;
     border-radius: 10px;
-    height:100vh;
+    height:calc(100vh - 2px);
     overflow: hidden;
 }
 .game-container {
@@ -677,19 +677,80 @@ input:focus {
     overscroll-behavior: none;
     /* width: min(100vw - 20px, 480px); */
     width: 100%;
-    height: calc(100% - 17vh);
-    background: #ddd;
+    height: calc(100% - 16.2vh);
     position: relative;
     max-height:870px;
 }
 .game-container .btn-home{
-    position: fixed;
+    position: absolute;
     top: -3px;
-    left: 20px;
-    width: calc(200 / 1200 * 100%);
-    aspect-ratio: 1 / 1;
+    left: 4.6%;
+    width: calc(183 / 1280 * 100%);
+    aspect-ratio: 183 / 213;
 }
-.game-container .btn-home img{width:100%}
+
+#zoomIn{
+    top:80px;
+    
+}
+#zoomOut{
+    top:150px;
+}
+/* 확대 축소 버튼 */
+.zoom-btn {
+    position: absolute;
+    right:20px;
+    top: 85px;
+    width: min(100%, calc(173 * 100% / 1280));
+    max-width:50px;
+    aspect-ratio: 173 / 210;
+    cursor: pointer;
+    display: block;
+}
+.zoom-btn:active {
+    transform: scale(0.8);
+    transition: transform 0.1s ease;
+}
+.deco-search-count{
+    position: absolute;
+    top:4px;
+    left:19%;
+    width:calc(141 / 1280 * 100%);
+    aspect-ratio: 141 / 170;
+}
+.found-target{
+    position: absolute;
+    top:16px;
+    left:31%;
+    font-size:22px;
+    font-weight: 900;
+    color:#fff;
+}
+.found-target .found-count{
+    color:#ffd417;
+}
+.found-target .slash{
+    margin:0 3px;
+}
+
+/* 타이머 스타일 추가 */
+.deco-timer{
+    position: absolute;
+    top:16px;
+    right:29%;
+    width:calc(89 / 1280 * 100%);
+    aspect-ratio: 89 / 94;
+}
+.timer {
+    position: absolute;
+    top: 12px;
+    right: 4.6%;
+    font-weight: bold;
+    color: white;
+    font-weight:700;
+    font-size:30px;
+}
+
 .background {
     position: absolute;
     width: min(300vw, 1440px);
@@ -724,50 +785,6 @@ input:focus {
 }
 
 
-#zoomIn{
-    top:85px;
-}
-#zoomOut{
-    top:150px;
-}
-/* 확대 축소 버튼 */
-.zoom-btn {
-    position: absolute;
-    right:20px;
-    top: 85px;
-    width: min(100%, calc(173 * 100% / 1280));
-    aspect-ratio: 173 / 210;
-    cursor: pointer;
-    display: block;
-}
-.zoom-btn:active {
-    transform: scale(0.8);
-    transition: transform 0.1s ease;
-}
-/* 찾은 아이템 */
-.found-target{
-    position: absolute;
-    top:20px;
-    left:100px;
-    font-size:32px;
-    font-weight: 900;
-    color:#fff;
-    letter-spacing: 2px;
-}
-.found-count{
-    color:#ffd417;
-}
-
-/* 타이머 스타일 추가 */
-.timer {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-weight: bold;
-    color: white;
-    font-weight:900;
-    font-size:32px;
-}
 
 /* 미니맵 스타일 추가 */
 .minimap {
@@ -794,11 +811,30 @@ input:focus {
     border: 2px solid #f92225;
     pointer-events: none;
 }
-
+#itemLayer .content{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    background: url('/images/bg-item.png') repeat 0 0;
+    background-size: 100%;
+    aspect-ratio: 905 / 1063;
+    width: calc(905 / 1280 * 100%);
+    max-width: 440px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+    border:0 none;
+}
+#itemLayer .content .btn-close{
+    position: absolute;
+    top:1.5%;
+    right:1.5%;
+    width:11.6%;
+}
 #itemLayer .bg-img{
     display:block;
     width: 80%;
-    margin:0 auto;
+    margin:20% auto 0;
     aspect-ratio: 720 / 578;
 }
 #itemLayer .bg-img.item1{
@@ -856,21 +892,21 @@ input:focus {
 .target-list {
     position: fixed;
     width: min(100vw - 8px, 480px);
-    height: 17vh;
+    height: 16.3vh;
     background: #fff;
     bottom: 3px;
     left: 50%;
     transform: translateX(-50%);
 }
-.target-list::before{
+.game-container::after{
     content:'';
     position: absolute;
-    top:0;
+    bottom:0px;
     left:0;
     width:100%;
     height:4px;
     background:url('/images/deco-embo.png') repeat 0 0;
-    background-size: 100% 100%;
+    background-size: 11px 4px;
 }
 .swiper {
     position:relative;
@@ -914,12 +950,21 @@ input:focus {
     overflow: hidden;
 }
 .item-img-on{
-    /* width: calc(242 / 1280 * 100%); */
+    width: calc(242 / 1280 * 100%);
     width:100%;
     aspect-ratio: 242 / 306;
     transition: opacity 0.3s ease;
     z-index: 1;
-    overflow: hidden;
+}
+.item-img-on.check:before{
+    content:'';
+    position: absolute;
+    top:0;
+    right:0;
+    width:30px;
+    height:30px;
+    background:url('/images/mark-o.png') no-repeat center;
+    background-size: contain;
 }
 @keyframes peelOff {
     0% {

@@ -193,8 +193,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetClass = itemLayer.querySelector('.bg-img').classList[1];
         const targetSlide = document.querySelector(`.swiper-slide[data-target="${targetClass}"]`);
         const itemImgRed = targetSlide.querySelector('.item-img-red');
+        const itemImgOn = targetSlide.querySelector('.item-img-on');
         if (itemImgRed) {
             itemImgRed.style.animation = 'peelOff 0.3s ease-out forwards';
+            itemImgOn.classList.add('check');
         }
     }
 
