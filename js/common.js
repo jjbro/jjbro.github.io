@@ -90,8 +90,8 @@ function createFirework() {
     firework.className = 'firework';
     
     // 랜덤 위치 설정
-    const x = Math.random() * (Math.min(window.innerWidth, 480) - 20);
-    const y = Math.random() * 180;
+    const x = 20 + Math.random() * (Math.min(window.innerWidth, 480) - 40);
+    const y = 20 + Math.random() * 180;
     firework.style.left = x + 'px';
     firework.style.top = y + 'px';
 
@@ -129,7 +129,7 @@ function createFirework() {
         particles[3].style.height = '2px';
 
         particles.forEach(p => p.style.opacity = '0.8');
-    }, 100);
+    }, 300);
 
     // 페이드 아웃
     setTimeout(() => {
@@ -154,7 +154,7 @@ function startFireworks() {
         if (document.getElementById('fireworksContainer').children.length < 8) {
             createFirework();
         }
-        setTimeout(createRandomFirework, Math.random() * 300);
+        setTimeout(createRandomFirework, Math.random() * 400);
     };
     createRandomFirework();
 }
