@@ -678,6 +678,7 @@ input:focus {
 .game-page{
     background:#000;
     padding:1px;
+    position:relative;
 }
 .layout-section{
     border:3px solid #ffd70c;
@@ -709,6 +710,7 @@ input:focus {
     width: calc(183 / 1280 * 100%);
     aspect-ratio: 183 / 213;
     z-index:1;
+    max-width:55px;
 }
 
 #zoomIn{
@@ -1306,6 +1308,7 @@ input:focus {
     width:70%;
     min-width: 290px;
     outline:#000 solid 1px;
+    max-width: 350px;
 }
 .nickname-content .title-nickname{
     width:100%;
