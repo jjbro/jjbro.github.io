@@ -89,7 +89,7 @@ input:focus {
 }
 
 /* main */
-#fireworksContainer {
+#fireworksContainer, #fireworksContainer2 {
     position: absolute;
     top: 0;
     left: 50%;
@@ -456,7 +456,7 @@ input:focus {
     display:flex;
     align-items: center;
     margin-top:5px;
-    gap:20px;
+    gap:15px;
 }
 .my-rank-content .my-nickname {
     font-size: 8vw;
@@ -520,6 +520,9 @@ input:focus {
     padding-left:18px;
     font-size:13px;
     font-weight: 500;
+}
+.rank-list li:nth-child(1) .rank-num {
+    margin-left: 1px;
 }
 .rank-list li .rank-score {
     text-align: right;
@@ -686,13 +689,13 @@ input:focus {
     overflow: hidden;
     overscroll-behavior: none;
     width: 100%;
-    height: calc(100% - 16.2vh);
+    height: calc(100% - 16.3vh);
     position: relative;
 }
-.game-container::after{
+.target-list::after{
     content:'';
     position: absolute;
-    bottom:0px;
+    top:-4px;
     left:0;
     width:100%;
     height:4px;
@@ -705,6 +708,7 @@ input:focus {
     left: 4.6%;
     width: calc(183 / 1280 * 100%);
     aspect-ratio: 183 / 213;
+    z-index:1;
 }
 
 #zoomIn{
@@ -903,8 +907,8 @@ input:focus {
     font-size:14px;
     font-weight: 500;
     text-decoration: underline;
-    text-underline-offset: 4px;
-    line-height:1.3;
+    text-underline-offset: 3px;
+    line-height:1.4;
     word-break: keep-all;
     white-space: pre-wrap;
 }
@@ -1252,23 +1256,24 @@ input:focus {
 .complete-form .complete-checkbox label{
     font-size:12px;
 }
-.complete-form #result {
-    margin-top:35px;
-    width: 100%;
+#result {
+    display:block;
+    margin:35px auto 0;
+    width: 80%;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: transform 0.1s ease;
 }
-.complete-form #result:active {
+#result:active {
     transform: scale(0.95);
 }
-.complete-form #result .img{
+#result .img{
     width: 100%;
     aspect-ratio: 923 / 199;
 }
-.complete-form #result:disabled {
+#result:disabled {
     background: #ccc;
     cursor: not-allowed;
 }

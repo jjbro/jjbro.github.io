@@ -84,8 +84,8 @@ function closeModal(modalId) {
 }
 
 // 파티클
-function createFirework() {
-    const container = document.getElementById('fireworksContainer');
+function createFirework(element) {
+    const container = element ? element : document.getElementById('fireworksContainer');
     const firework = document.createElement('div');
     firework.className = 'firework';
     
@@ -105,7 +105,6 @@ function createFirework() {
     }
 
     container.appendChild(firework);
-
     // 파티클 애니메이션
     setTimeout(() => {
         // 위쪽 파티클
@@ -147,12 +146,25 @@ function createFirework() {
         container.removeChild(firework);
     }, 1000);
 }
-
+let fireworksInterval;
 // 주기적으로 파티클 생성
 function startFireworks() {
     const createRandomFirework = () => {
         if (document.getElementById('fireworksContainer').children.length < 8) {
             createFirework();
+        }
+        fireworksInterval = setTimeout(createRandomFirework, Math.random() * 400);
+    };
+    createRandomFirework();
+}
+function stopFireworks() {
+    clearTimeout(fireworksInterval); // 타이머 중지
+}
+function startFireworks2() {
+    stopFireworks();
+    const createRandomFirework = () => {
+        if (document.getElementById('fireworksContainer2').children.length < 8) {
+            createFirework(document.getElementById('fireworksContainer2'));
         }
         setTimeout(createRandomFirework, Math.random() * 400);
     };
