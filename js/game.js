@@ -160,7 +160,13 @@
                     clearInterval(timerInterval);
                     
                     // 완료 시간 계산
-                    finalTime = ((Date.now() - startTime) / 1000).toFixed(2); 
+                    finalTime = ((Date.now() - startTime) / 1000).toFixed(2);
+
+                    // 시간을 00:00:00 형식으로 변환
+                    const finalMinutes = String(Math.floor(finalTime / 60)).padStart(2, '0');
+                    const finalSeconds = String(Math.floor(finalTime % 60)).padStart(2, '0');
+                    const finalMilliseconds = String((finalTime % 1).toFixed(2).substring(2)).padStart(2, '0');
+                    finalTime = `${finalMinutes}:${finalSeconds}:${finalMilliseconds}`;
                 }
             } else {
                 // 빈 공간을 클릭한 경우

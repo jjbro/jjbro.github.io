@@ -456,7 +456,7 @@ input:focus {
     display:flex;
     align-items: center;
     margin-top:5px;
-    gap:15px;
+    gap:12px;
 }
 .my-rank-content .my-nickname {
     font-size: 8vw;

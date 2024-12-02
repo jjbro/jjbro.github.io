@@ -263,9 +263,6 @@ function complete(finalTime) {
     const completeLayer = document.getElementById('complete');
     completeLayer.classList.add('active');
     
-    // 초 단위로 변환
-    const totalSeconds = Math.floor(finalTime);
-    
     document.getElementById('result').addEventListener('click', async function() {
         const name = document.getElementById('name').value;
         const phone1 = document.getElementById('phone1').value;
@@ -325,7 +322,7 @@ function complete(finalTime) {
                 openNicknameLayer();
                 return;
             }
-            //const result = {nickname:'아무개', ranking:'2,233'};
+
             //닉네임이 있는 경우 결과 표시
             if (result.ranking) {
                 const resultLayer = document.getElementById('result-layer');
@@ -344,14 +341,7 @@ function complete(finalTime) {
 
                 //데이터 세팅
                 user.textContent = `${result.nickname}님의`;
-                const minutes = Math.floor(totalSeconds / 60);
-                const seconds = totalSeconds % 60;
-
-                // 0을 "00"으로 표현
-                const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-                const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
-
-                time.textContent = `${formattedMinutes} : ${formattedSeconds}`;
+                time.textContent = `${finalTime}`;
                 rank.textContent = `${result.ranking.toLocaleString()}등`;
 
                 // 결과 레이어 표시
