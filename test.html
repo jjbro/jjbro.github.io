@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>sk이노베이션 숨은 에너지 찾기</title>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <!-- 스타일 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="page" class="game-page">
+    <section class="layout-section">
+        <a href="/main.html" class="btn-home"><img class="img" src="/images/btn-home.png" alt="홈으로"></a>
+        <!-- 지도 -->
+        <div class="game-container">
+            <div class="background">
+                <span class="target item1" data-target="item1" data-text="전기차 배터리 셀(Battery Cell)" data-desc="더 빠르게 충전되고, 더 안전하며, 더 오래 가는 '초고속 배터리' 2024 최고 혁신상 수상을 축하합니다."></span>
+                <span class="target item2" data-target="item2" data-text="LNG(천연가스)선" data-desc="국내 최대 민간 LNG 사업자인 SK이노베이션은 개발부터 운송·소비까지 LNG 벨류체인 구축 하였습니다."></span>
+                <span class="target item3" data-target="item3" data-text="ZIC" data-desc="글로벌 No.1 윤활기유 ‘유베이스’ 개발 및 이를 기반으로 한 고품질 엔진오일 ZIC 생산하고 있습니다"></span>
+                <span class="target item4" data-target="item4" data-text="슈퍼팔트" data-desc="SK에너지는 국내 최초로 고품질, 고기능성 아스팔트인 '슈퍼팔트'를 개발하는 등 전 세계 아스팔트 시장 선도를 목표로 연구개발을 지속하고 있습니다"></span>
+                <span class="target item5" data-target="item5" data-text="폴사인" data-desc="62년간 대한민국 에너지 역사와 함께해온 SK이노베이션. 다가올 전동화시대를 위해 ‘전기 벨류체인’을 구축하고 있습니다."></span>
+                <span class="target item6" data-target="item6" data-text="해상광구" data-desc="호주 ‘탄소 저장’ 탐사권 획득하여 ‘자원개발∙미래에너지’ 가속화에 동참합니다."></span>
+                <span class="target item7" data-target="item7" data-text="SAF" data-desc="SK에너지, 국내 최초 지속가능항공유 전용 생산라인 확보 하였습니다."></span>
+                <span class="target item8" data-target="item8" data-text="EV" data-desc="SK배터리아메리카 미국공장, 현대차 탑재 배터리 양산을 시작합니다."></span>
+                <span class="target item9" data-target="item9" data-text="ESS" data-desc="SK엔무브의 액침냉각 기술을 적용한 ‘불타지 않는 ESS’ 세계최초 개발하였습니다."></span>
+                <span class="target item10" data-target="item10" data-text="아이오딘" data-desc="‘차세대 차량용 냉매 핵심원료’ 아이오딘. 안정적 공급망 확보에 힘쓰고 있습니다."></span>
+            </div>
+            
+            <span class="deco-search-count"><img class="img" src="/images/deco-search-count.png" alt="검색 횟수 아이콘"></span>
+            <p class="found-target"><strong class="found-count">0</strong><span class="slash">/</span>10</p>
+            <span class="deco-timer"><img class="img" src="/images/deco-icon-timer.png" alt="타이머 아이콘"></span>
+            <div class="timer">00:00</div>
+            <button class="zoom-btn" id="zoomIn"><img class="img" src="/images/btn-zoom-in.png" alt="확대" /></button>
+            <button class="zoom-btn" id="zoomOut"><img class="img" src="/images/btn-zoom-out.png" alt="축소" /></button>
+            <div class="minimap">
+                <div class="minimap-content">
+                    <div class="minimap-viewport"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 하단 슬라이드 아이템 -->
+        <div class="target-list">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" data-target="item1">
+                        <div class="item-img-yellow"><img class="img" src="/images/item1-yellow.png" alt="1번 실루엣"></div>
+                        <div class="item-img-red"><img class="img" src="/images/item1-red.png" alt="2번 실루엣"></div>
+                        <div class="item-img-on"><img class="img" src="/images/item1-on.png" alt="첫번째 이미지"></div>
+                    </div>
+                    <div class="swiper-slide" data-target="item2">
+                        <div class="item-img-yellow"><img class="img" src="/images/item2-yellow.png" alt="2번 실루엣"></div>
+                        <div class="item-img-red"><img class="img" src="/images/item2-red.png" alt="2번 실루엣"></div>
+                        <div class="item-img-on"><img class="img" src="/images/item2-on.png" alt="두번째 이미지"></div>
+                    </div>
+                    <div class="swiper-slide" data-target="item3">
+                        <div class="item-img-yellow"><img class="img" src="/images/item3-yellow.png" alt="3번 실루엣"></div>
+                        <div class="item-img-red"><img class="img" src="/images/item3-red.png" alt="3번 실루엣"></div>
+                        <div class="item-img-on"><img class="img" src="/images/item3-on.png" alt="세번째 이미지"></div>
+                    </div>
+                    <div class="swiper-slide" data-target="item4">
+                        <div class="item-img-yellow"><img class="img" src="/images/item4-yellow.png" alt="4번 실루엣"></div>
+                        <div class="item-img-red"><img class="img" src="/images/item4-red.png" alt="4번 실루엣"></div>
+                        <div class="item-img-on"><img class="img" src="/images/item4-on.png" alt="네번째 이미지"></div>
+                    </div>
+                    <div class="swiper-slide" data-target="item5">
+                        <div class="item-img-yellow"><img class="img" src="/images/item5-yellow.png" alt="5번 실루엣"></div>
+                        <div class="item-img-red"><img class="img" src="/images/item5-red.png" alt="5번 실루엣"></div>
+                        <div class="item-img-on"><img class="img" src="/images/item5-on.png" alt="다섯번째 이미지"></div>
+                    </div>
+                    <div class="swiper-slide" data-target="item6">
+                        <div class="item-img-yellow"><img class="img" src="/images/item6-yellow.png" alt="6번 실루엣"></div>
+                        <div class="item-img-red"><img class="img" src="/images/item6-red.png" alt="6번 실루엣"></div>
+                        <div class="item-img-on"><img class="img" src="/images/item6-on.png" alt="여섯번째 이미지"></div>
+                    </div>
+                    <div class="swiper-slide" data-target="item7">
+                        <div class="item-img-yellow"><img class="img" src="/images/item7-yellow.png" alt="7번 실루엣"></div>
+                        <div class="item-img-red"><img class="img" src="/images/item7-red.png" alt="7번 실루엣"></div>
+                        <div class="item-img-on"><img class="img" src="/images/item7-on.png" alt="일곱번째 이미지"></div>
+                    </div>
+                    <div class="swiper-slide" data-target="item8">
+                        <div class="item-img-yellow"><img class="img" src="/images/item8-yellow.png" alt="8번 실루엣"></div>
+                        <div class="item-img-red"><img class="img" src="/images/item8-red.png" alt="8번 실루엣"></div>
+                        <div class="item-img-on"><img class="img" src="/images/item8-on.png" alt="여덟번째 이미지"></div>
+                    </div>
+                    <div class="swiper-slide" data-target="item9">
+                        <div class="item-img-yellow"><img class="img" src="/images/item9-yellow.png" alt="9번 실루엣"></div>
+                        <div class="item-img-red"><img class="img" src="/images/item9-red.png" alt="9번 실루엣"></div>
+                        <div class="item-img-on"><img class="img" src="/images/item9-on.png" alt="아홉번째 이미지"></div>
+                    </div>
+                    <div class="swiper-slide" data-target="item10">
+                        <div class="item-img-yellow"><img class="img" src="/images/item10-yellow.png" alt="10번 실루엣"></div>
+                        <div class="item-img-red"><img class="img" src="/images/item10-red.png" alt="10번 실루엣"></div>
+                        <div class="item-img-on"><img class="img" src="/images/item10-on.png" alt="열번째 이미지"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- 완료 레이어 -->
+<div id="complete" class="complete-layer active">
+    <div id="fireworksContainer"></div>
+    <div class="complete-content">
+        <a href="/main.html" class="btn-home"><img class="img" src="/images/btn-home.png" alt="홈으로"></a>
+        <div class="complete-top">
+            <img class="img" src="/images/text-complete.png" alt="숨은 에너지 찾기 성공!">
+            <p class="complete-text">추첨을 통해 5,000명에게<br />게임결과 상관없이<br />SK이노베이션 <span class="highlight2">옥스포드 블록팩</span>을<br />드립니다</p>
+        </div>
+        
+        <div class="complete-form">
+            <p class="complete-form-tit"><img class="img" src="/images/text-complete2.png" alt="개인정보 입력"></p>
+            <p class="complete-form-text">이벤트 참여를 위해 개인정보를 입력해주세요!<br />이름과 연락처는 랭킹화면에 공개되지 않습니다</p>
+            <div class="form-item">
+                <label for="name">이<span class="space"></span>름</label>
+                <input type="text" id="name" placeholder="이름">
+            </div>
+            <div class="form-item">
+                <label for="phone1">연락처</label>
+                <div class="phone-inputs">
+                    <input type="text" id="phone1" maxlength="3" placeholder="010" oninput="this.value = this.value.replace(/[^0-9]/g, ''); autoNext(this, 3, 'phone2');">
+                    <input type="text" id="phone2" maxlength="4" placeholder="0000" oninput="this.value = this.value.replace(/[^0-9]/g, ''); autoNext(this, 4, 'phone3');">
+                    <input type="text" id="phone3" maxlength="4" placeholder="0000" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                </div>
+            </div>
+            <ul class="complete-notice">
+                <li>※ 랭킹과 무관하게 랜덤 추첨을 통해 경품이 제공됩니다.</li>
+                <li>※ 입력한 이름과 연락처는 당첨자 발표 및 경품 지급에 사용되니, 정확히 확인 후 입력해 주세요.</li>
+                <li>※ 이벤트 당첨자에게는 추후 작성하신 연락처로 주소 입력 요청 문자를 발송할 예정입니다.</li>
+            </ul>
+
+            <p class="complete-agree-tit">개인정보 수집 및 이용에 대한 동의</p>
+            <ul class="complete-privacy">
+                <li>✔️ 개인정보 수집 및 이용에 관한 동의</li>
+                <li>- 수집하는 개인정보 항목 : 이름 / 연락처 </li>
+                <li>- 개인정보 수집 및 이용 목적 : 이벤트 운영 대행 및 경품 발송</li>
+                <li>- 개인정보 보유 및 이용 기간 : 이벤트 종료 후 3개월간 보관 후 파기</li>
+            </ul>
+            <p class="complete-agree-tit">개인정보 위탁 관련 사항</p>
+            <div class="complete-privacy">위탁업무 수행수행목적 외 개인정보 처리금지, 기술적 · 관리적 보호조치, 재위탁 제한, 수탁자에 대한 관리 · 감독, 손해배상 책임 등에 관한 사항을 규정하고, 수탁자가 개인정보를 안전하게 처리하는지를 감독하고 있습니다.</div>
+            <ul class="complete-notice mb-20">
+                <li>※ 개인정보 수집 및 이용에 대한 안내에 동의 후 이벤트 참여가 가능합니다.</li>
+            </ul>
+            
+            <div class="complete-checkbox">
+                <input type="checkbox" id="privacy" required>
+                <label for="privacy">이벤트 참여를 위한 개인정보 수집활용 동의</label>
+            </div>
+            
+            <div class="complete-checkbox">
+                <input type="checkbox" id="age" required>
+                <label for="age">만 14세 이상입니다.</label>
+            </div>
+            
+            <button id="result"><img src="/images/btn-result.png" alt="결과보기" class="img"></button>
+        </div>
+    </div>
+</div>
+
+<!-- 닉네임 레이어 -->
+<div id="nickname-layer" class="nickname-layer">
+    <div class="nickname-content">
+        <p class="title-nickname"><img class="img" src="/images/title-nickname.png" alt="랭킹에 노출 될 닉네임을 입력해주세요"></p>
+        <input type="text" id="nicknameInput" placeholder="결과랭킹에 노출됩니다">
+        <p class="nickname-desc">※ 닉네임은 추후 변경이 불가합니다.</p>
+        <p class="nickname-error">이미 사용중인 닉네임 입니다. 다른 닉네임을 입력해주세요!</p>
+        <button id="submitNickname"><img class="img" src="/images/btn-confirm.png" alt="확인"></button>
+    </div>
+</div>
+
+<!-- 결과보기 레이어 -->
+<div id="result-layer" class="result-layer">
+    <div id="fireworksContainer2"></div>
+    <div class="result-content">
+        <a href="/main.html" class="btn-home"><img class="img" src="/images/btn-home.png" alt="홈으로"></a>
+        <div class="result-top">
+            <div class="result-deco"><img class="img" src="/images/deco-result.png" alt="결과보기"></div>
+            <p class="user"></p>
+            <p class="result-tit"><img class="img" src="/images/title-result.png" alt="게임결과"></p>
+            <p class="rank-text"><span class="rank"></span></p>
+            <p class="time"></p>
+            
+            <button class="btn-game-rank btn-style-black bold" type="button">오늘의 랭킹 확인</button>
+        </div>
+        <div class="result-bottom">
+            <button id="kakao-share-btn" class="btn-kakao-share"><img class="img" src="/images/btn-kakao2.png" alt="카카오톡 공유하기" /></button>
+            <a href="/event.html" class="btn-again"><img class="img" src="/images/btn-again.png" alt="다시도전"></a>
+        </div>
+    </div>
+</div>
+
+<!-- 오늘의 랭킹 레이어 -->
+<div id="gameRankLayer" class="layer-popup">
+    <div class="dimm"></div>
+    <div class="content">
+        <div class="content-inner">
+            <button type="button" class="btn-close"><img class="img" src="/images/btn-close.png" alt="닫기"></button>
+            <div class="my-rank-content">
+                <p class="my-nickname"></p>
+                <div class="my-rank-wrap"><span class="my-rank"></span> <span class="divider">|</span> <span class="my-time"></span></div>
+            </div>
+            <div class="rank-content">
+                <ul class="rank-list">
+                    <!-- 랭킹 데이터  -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 아이템 레이어 -->    
+<div id="itemLayer" class="layer-popup">
+    <div class="dimm"></div>
+    <div class="content">
+        <button type="button" class="btn-close"><img class="img" src="/images/btn-layer-close.png" alt="닫기"></button>
+        <div class="bg-img"></div>
+        <!-- <p><span class="item-title"></span></p> -->
+        <p class="item-desc"></p>
+    </div>
+</div>
+
+<script src="js/common.js"></script>
+<script src="js/game.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+// 완료 레이어 표시 함수(최종 플레이타임)
+function complete(finalTime) {
+    // 메인 상단 반짝이 효과
+    startFireworks();
+    const foundItems = document.querySelectorAll('.target.found').length;
+    const totalItems = document.querySelectorAll('.target').length;
+    if (foundItems < totalItems) {
+        alert(`${totalItems}개의 아이템을 찾아주세요!`);
+        return;
+    }
+    
+    const completeLayer = document.getElementById('complete');
+    completeLayer.classList.add('active');
+    
+    // 초 단위로 변환
+    const totalSeconds = Math.floor(finalTime);
+    
+    document.getElementById('result').addEventListener('click', async function() {
+        const name = document.getElementById('name').value;
+        const phone1 = document.getElementById('phone1').value;
+        const phone2 = document.getElementById('phone2').value;
+        const phone3 = document.getElementById('phone3').value;
+        const privacy = document.getElementById('privacy').checked;
+        const age = document.getElementById('age').checked;
+        const nickname = document.getElementById('nicknameInput').value;
+
+        // 유효성 검사
+        if (name.length < 2) {
+            alert('이름을 2자 이상 입력해주세요.');
+            return;
+        }
+        
+        const phone = `${phone1}${phone2}${phone3}`;
+        if (phone.length < 11) {
+            alert('올바른 연락처를 입력해주세요.');
+            return;
+        }
+        
+        if (!privacy) {
+            alert('개인정보 수집 활용에 동의해주세요.');
+            return;
+        }
+        if (!age) {
+            alert('만 14세 이상만 참여 가능합니다.');
+            return;
+        }
+        try {
+            const response = await fetch('https://{DOMAIN}/api/event-proc.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    hphone: phone,
+                    timer: finalTime,
+                    agree1: privacy ? 'Y' : 'N',
+                    agree2: age ? 'Y' : 'N',
+                    ...(nickname && { nickname })
+                })
+            });
+            const result = await response.json();
+            if (!result.result) {
+                if (result.message) {
+                    alert(result.message);
+                } else {
+                    alert('이벤트 참여 중 오류가 발생했습니다.');
+                }
+                return;
+            }
+            
+            //닉네임이 없는 경우
+            if (!result.nickname) {
+                openNicknameLayer();
+                return;
+            }
+            //const result = {nickname:'아무개', ranking:'2,233'};
+            //닉네임이 있는 경우 결과 표시
+            if (result.ranking) {
+                const resultLayer = document.getElementById('result-layer');
+                const user = resultLayer.querySelector('.user');
+                const time = resultLayer.querySelector('.time');
+                const rank = resultLayer.querySelector('.rank');
+                const gameRankLayer = document.getElementById('gameRankLayer');
+                const todayNickname= gameRankLayer.querySelector('.today-nickname');
+                const todayRank = gameRankLayer.querySelector('.today-rank');
+                const todayTime = gameRankLayer.querySelector('.today-time');
+
+                //로컬스토리지에 랭킹, 닉네임, 타임 저장
+                localStorage.setItem('ranking', result.ranking);
+                localStorage.setItem('nickname', result.nickname);
+                localStorage.setItem('time', finalTime);
+
+                //데이터 세팅
+                user.textContent = `${result.nickname}님의`;
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+
+                // 0을 "00"으로 표현
+                const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+                const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+
+                time.textContent = `${formattedMinutes} : ${formattedSeconds}`;
+                rank.textContent = `${result.ranking.toLocaleString()}등`;
+
+                // 결과 레이어 표시
+                resultLayer.classList.add('active');
+                startFireworks2();
+
+                // 오늘의 랭킹 클릭 시 호출되는 팝업에 데이터 추가 셋팅
+                todayNickname.textContent = result.nickname;
+                todayTime.textContent = finalTime;
+                todayRank.textContent = result.ranking.toLocaleString();
+            }
+            
+        } catch (error) {
+            console.error('API 호출 중 오류 발생:', error);
+            alert('이벤트 참여 중 오류가 발생했습니다. 다시 시도해주세요.');
+        }
+    });
+}
+
+// 닉네임 입력 레이어 OPEN
+function openNicknameLayer() {
+    const nicknameLayer = document.getElementById('nickname-layer');
+    nicknameLayer.classList.add('active');
+}
+// 닉네임 입력 레이어 CLOSE
+function closeNicknameLayer() {
+    const nicknameLayer = document.getElementById('nickname-layer');
+    nicknameLayer.classList.remove('active');
+}
+
+// 자동 다음 입력창 이동 함수
+function autoNext(currentInput, maxLength, nextInputId) {
+    if (currentInput.value.length >= maxLength) {
+        document.getElementById(nextInputId).focus();
+    }
+}
+
+// 테스트용 랭킹 데이터
+const mockRankData = [
+    { nickname: "에너지왕123", timer: 65.22 },
+    { nickname: "찾아라SK", timer: 82.22 },
+    { nickname: "게임고수", timer: 95.22 },
+    { nickname: "SK매니아", timer: 110.22 },
+    { nickname: "열심히찾기", timer: 125.22 },
+    { nickname: "숨은보물", timer: 138.22 },
+    { nickname: "에너지파인더", timer: 145.22 },
+    { nickname: "SK러버", timer: 160.22 },
+    { nickname: "파워레인저", timer: 180.22 }
+];
+
+// DOM 로드
+document.addEventListener('DOMContentLoaded', function() {
+    // 닉네임 저장 버튼 이벤트
+    document.getElementById('submitNickname').addEventListener('click', async () => {
+        const nickname = document.getElementById('nicknameInput').value;
+        const name = document.getElementById('name').value;
+        const phone1 = document.getElementById('phone1').value;
+        const phone2 = document.getElementById('phone2').value;
+        const phone3 = document.getElementById('phone3').value;
+        const phone = `${phone1}${phone2}${phone3}`;
+        
+        //에러 메시지 숨기기
+        const errorElement = document.querySelector('.nickname-error');
+        errorElement.style.display = 'none';
+
+        // 유효성 검사
+        if (nickname.length < 2) {
+            alert('닉네임을 2자 이상 입력해주세요.');
+            return;
+        }
+
+        try {
+            const response = await fetch('https://{DOMAIN}/api/nickname-proc.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: name,
+                    hphone: phone,
+                    nickname: nickname
+                })
+            });
+            
+            const result = await response.json();
+            if (result.result) {
+                alert('닉네임이 저장되었습니다. 결과보기 버튼을 클릭해주세요.');
+                // 닉네임 레이어 닫기
+                closeNicknameLayer();
+            } else {
+                // 실패 시 닉네임 중복 메시지 노출
+                errorElement.style.display = 'block';
+            }
+        } catch (error) {
+            console.error('닉네임 저장 중 오류 발생:', error);
+            alert('닉네임 저장에 실패했습니다. 다시 시도해주세요.');
+        }
+    });
+
+    // 쉼표 찍는 함수
+    function formatNumber(number) {
+        const numWithoutCommas = number.toString().replace(/,/g, '');
+        return numWithoutCommas.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    //오늘의 랭킹 버튼 클릭
+    document.querySelector('.btn-game-rank').addEventListener('click', function() {
+        const rankList = document.querySelector('.rank-list');
+        const myRankContent = document.querySelector('.my-rank-content');
+        
+        // 로컬스토리지
+        const nickname = localStorage.getItem('nickname');
+        const ranking = localStorage.getItem('ranking');
+        const time = localStorage.getItem('time');
+
+        // 스토리지에 내 정보 존재하면 표시
+        if (nickname && ranking && time) {
+            myRankContent.querySelector('.my-nickname').textContent = nickname;
+            myRankContent.querySelector('.my-rank').textContent = formatNumber(ranking) + '위';
+            myRankContent.querySelector('.my-time').textContent = time + '초';
+            myRankContent.classList.add('active');
+        }
+
+        rankList.innerHTML = ''; // 기존 데이터 초기화
+
+        // 랭킹 레이어팝업 표시
+        openModal('gameRankLayer');
+        
+        // 테스트용 데이터 사용
+        mockRankData.forEach((item, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span class="rank-num">${index + 1}</span>
+                <span class="rank-name">${item.nickname}</span>
+                <span class="rank-score">${item.timer}초</span>
+            `;
+            rankList.appendChild(li);
+        });
+
+        /* API 연동 예시
+        fetch(`https://{DOMAIN}/api/rank`)
+            .then(response => response.json())
+            .then(data => {
+                data?.slice(0, 9).forEach((item, index) => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <span class="rank-num">${index + 1}</span>
+                        <span class="rank-name">${item.nickname}</span>
+                        <span class="rank-score">${item.timer}초</span>
+                    `;
+                    rankList.appendChild(li);
+                });
+            })
+            .catch(error => {
+                console.error('랭킹 데이터 로딩 실패:', error);
+            });
+        */
+    });
+
+    //카카오 초기화
+    Kakao.init('a7fc4bbe5d956fcc2525283cd9daae87'); //key 변경 요망
+
+    // 카카오 공유하기
+    document.getElementById('kakao-share-btn').addEventListener('click', function() {
+        Kakao.Share.sendDefault({
+            objectType: 'feed',
+            content: {
+                title: 'sk이노베이션 숨은 에너지 찾기',
+                description: '전 세계 속 SKI의 숨은 에너지 10개 찾고 옥스포드 블록팩 받자!',
+                imageUrl: `${window.location.href}/images/background.jpg`,
+                link: {
+                    mobileWebUrl: window.location.href,
+                    webUrl: window.location.href,
+                },
+            },
+            buttons: [
+                {
+                    title: '게임 시작하기',
+                    link: {
+                        mobileWebUrl: window.location.href,
+                        webUrl: window.location.href,
+                    },
+                },
+            ],
+        });
+    });
+});
+</script>
+</body>
+</html>
