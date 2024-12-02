@@ -260,6 +260,7 @@ input:focus {
     line-height: 1.3;
     margin-bottom: 5px;
     letter-spacing: -1px;
+    font-weight: 500;
 }
 .notice li:before {
     content: '';
@@ -520,6 +521,9 @@ input:focus {
     padding-left:18px;
     font-size:13px;
     font-weight: 500;
+}
+.rank-list li .rank-name{
+
 }
 .rank-list li:nth-child(1) .rank-num {
     margin-left: 1px;
@@ -1422,7 +1426,7 @@ input:focus {
     }
 }
 .result-content .time{
-    font-size:90px;
+    font-size:72px;
     font-weight: 900;
     text-align: center;
     line-height:90px;
