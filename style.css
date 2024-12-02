@@ -202,18 +202,17 @@ input:focus {
     font-style: normal;
     font-size:12px;
 }
-.main-top .notice li .gift-img{
-    width:90%;
-    padding-left:70px;
-    margin:5px 0 0 0;
+.main-top .gift-img{
+    width:60%;
+    margin:5px auto 0;
 }
-.main-top .notice li .gift-sub-text{
-    width:90%;
-    padding-left:70px;
+.main-top .gift-sub-text{
     margin:10px 0 0 0;
     font-size:12px;
+    text-align: center;
+    font-weight: 500;
 }
-.main-top .notice li .gift-sub-text strong{
+.main-top .gift-sub-text strong{
     color:#ea002c;
 }
 .highlight1{
@@ -462,7 +461,7 @@ input:focus {
 .my-rank-content .my-nickname {
     font-size: 8vw;
     max-width: 180px;
-    font-weight: 700;
+    font-weight: 900;
     overflow: hidden;
 }
 
@@ -471,12 +470,12 @@ input:focus {
 }
 .my-rank-content .my-rank {
     font-size: 4.5vw;
-    font-weight: 500;
+    font-weight: 700;
     overflow: hidden;
 }
 .my-rank-content .my-time {
     font-size: 4.5vw;
-    font-weight: 500;
+    font-weight: 700;
     overflow: hidden;
 }
 .my-rank-content + .rank-content{
@@ -523,7 +522,7 @@ input:focus {
     font-weight: 500;
 }
 .rank-list li .rank-name{
-    font-weight: 500;
+    font-weight: 700;
 }
 .rank-list li:nth-child(1) .rank-num {
     margin-left: 1px;
@@ -678,6 +677,27 @@ input:focus {
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
     text-align: center;
+    width:100%;
+    height:100%;
+}
+.countdown-image {
+    display: none; /* 기본적으로 숨김 */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.countdown-3, .countdown-2 {
+    width: 25%;
+}
+
+.countdown-1 {
+    width: 12%;
+}
+
+.countdown-start {
+    width: 80%; /* 필요에 따라 설정 */
 }
 .game-page{
     background:#000;

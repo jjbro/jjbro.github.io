@@ -407,7 +407,17 @@
 
             // 카운트다운 함수
             function showCountdown(number) {
-                introContent.textContent = number;
+                // 모든 이미지 숨기기
+                document.querySelectorAll('.countdown-image').forEach(img => {
+                    img.style.display = 'none';
+                });
+            
+                // 해당 숫자 또는 "START" 이미지 보이기
+                const image = document.querySelector(`.countdown-${number}`);
+                if (image) {
+                    image.style.display = 'block';
+                }
+            
                 introContent.style.opacity = '1';
                 setTimeout(() => {
                     introContent.style.opacity = '0';
@@ -419,7 +429,7 @@
             setTimeout(() => showCountdown('2'), 1000);
             setTimeout(() => showCountdown('1'), 2000);
             setTimeout(() => {
-                showCountdown('START');
+                showCountdown('start');
                 setTimeout(() => {
                     introContent.style.display = 'none';
                 }, 800);

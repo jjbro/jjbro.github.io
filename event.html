@@ -11,7 +11,12 @@
 </head>
 <body>
 <div class="intro-dimm"></div>    
-<div class="intro-content"></div>
+<div class="intro-content">
+    <img src="/images/3.png" alt="3" class="countdown-image countdown-3" />
+    <img src="/images/2.png" alt="2" class="countdown-image countdown-2" />
+    <img src="/images/1.png" alt="1" class="countdown-image countdown-1" />
+    <img src="/images/start.png" alt="START" class="countdown-image countdown-start" />
+</div>
 <div id="page" class="game-page">
     <section class="layout-section">
         <a href="/main.html" class="btn-home"><img class="img" src="/images/btn-home.png" alt="홈으로"></a>
@@ -110,7 +115,7 @@
         <a href="/main.html" class="btn-home"><img class="img" src="/images/btn-home.png" alt="홈으로"></a>
         <div class="complete-top">
             <img class="img" src="/images/text-complete.png" alt="숨은 에너지 찾기 성공!">
-            <p class="complete-text">추첨을 통해 5,000명에게<br />랭킹에 관계없이<br />SK이노베이션 <span class="highlight2">옥스포드 블록팩</span>을<br />드립니다</p>
+            <p class="complete-text">랭킹에 관계없이<br />추첨을 통해 5,000분께<br />SK이노베이션 <span class="highlight2">옥스포드 블록팩</span>을<br />드립니다</p>
         </div>
         
         <div class="complete-form">
@@ -386,15 +391,15 @@ function autoNext(currentInput, maxLength, nextInputId) {
 
 // 테스트용 랭킹 데이터
 const mockRankData = [
-    { nickname: "에너지왕123", timer: 65.22 },
-    { nickname: "찾아라SK", timer: 82.22 },
-    { nickname: "게임고수", timer: 95.22 },
-    { nickname: "SK매니아", timer: 110.22 },
-    { nickname: "열심히찾기", timer: 125.22 },
-    { nickname: "숨은보물", timer: 138.22 },
-    { nickname: "에너지파인더", timer: 145.22 },
-    { nickname: "SK러버", timer: 160.22 },
-    { nickname: "파워레인저", timer: 180.22 }
+    { nickname: "에너지왕123", timer: "10:05:22" },
+    { nickname: "찾아라SK", timer: "10:07:22" },
+    { nickname: "게임고수", timer: "10:10:22" },
+    { nickname: "SK매니아", timer: "10:11:22" },
+    { nickname: "열심히찾기", timer: "10:12:22" },
+    { nickname: "숨은보물", timer: "10:13:22" },
+    { nickname: "에너지파인더", timer: "10:14:22" },
+    { nickname: "SK러버", timer: "10:16:22" },
+    { nickname: "파워레인저", timer: "10:18:22" }
 ];
 
 // DOM 로드
