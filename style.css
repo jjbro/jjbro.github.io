@@ -1177,12 +1177,6 @@ input:focus {
 }
 .complete-form .complete-notice{
     margin-top:10px;
-    height:160px;
-    overflow-y: auto;
-    scrollbar-width: 5px;
-    scrollbar-color: #000 #dfdfdf;
-    white-space: pre-wrap;
-    
 }
 .complete-form .complete-notice li{
     font-size:12px;
@@ -1222,7 +1216,7 @@ input:focus {
     background: #efefef;
     font-size:12px;
     word-break: keep-all;
-    max-height: 160px;
+    height: 62px;
     overflow-y: auto;
 }
 .complete-form .complete-checkbox{
