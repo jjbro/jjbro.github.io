@@ -906,7 +906,7 @@ input:focus {
     width: 80%;
     margin:15px auto 0;
     text-align: center;
-    font-size:14px;
+    font-size:13px;
     font-weight: 500;
     text-decoration: underline;
     text-underline-offset: 3px;
@@ -914,7 +914,9 @@ input:focus {
     word-break: keep-all;
     white-space: pre-wrap;
 }
-
+#itemLayer .item-desc span{
+    background-color:#FFF000;
+}
 /* 스와이퍼 관련 스타일 추가 */
 .target-list {
     position: fixed;
@@ -1175,6 +1177,12 @@ input:focus {
 }
 .complete-form .complete-notice{
     margin-top:10px;
+    height:160px;
+    overflow-y: auto;
+    scrollbar-width: 5px;
+    scrollbar-color: #000 #dfdfdf;
+    white-space: pre-wrap;
+    
 }
 .complete-form .complete-notice li{
     font-size:12px;

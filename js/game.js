@@ -124,7 +124,7 @@
                 // targetCountry.textContent = target.dataset.country;
                 itemImg.className = 'bg-img';
                 itemImg.classList.add(target.dataset.target);
-                itemDesc.textContent = target.dataset.desc;
+                itemDesc.innerHTML = target.dataset.desc;
                 
                 // 지도 클릭 비활성화
                 background.style.pointerEvents = 'none';
@@ -510,7 +510,7 @@
                     // 아이템 레이어 업데이트
                     itemImg.className = 'bg-img';
                     itemImg.classList.add(target.dataset.target);
-                    itemDesc.textContent = target.dataset.desc;
+                    itemDesc.innerHTML = target.dataset.desc;
 
                     // 지도 클릭 비활성화
                     background.style.pointerEvents = 'none';
