@@ -523,7 +523,7 @@ input:focus {
     font-weight: 500;
 }
 .rank-list li .rank-name{
-
+    font-weight: 500;
 }
 .rank-list li:nth-child(1) .rank-num {
     margin-left: 1px;
