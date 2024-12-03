@@ -482,10 +482,35 @@ input:focus {
     margin-top:10px;
 }
 
-.rank-content{
-    margin-top:20px;
-    padding:0 2.3%
+.rank-content {
+    margin-top: 20px;
+    padding: 0 2.3%;
+    max-height: 427px;
+    overflow-y: scroll;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #ccc #f9f9f9; /* Firefox */
 }
+
+/* 스크롤바 스타일링 */
+.rank-content::-webkit-scrollbar {
+    width: 5px; /* 더 얇게 */
+}
+
+.rank-content::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* 연한 색 */
+    border-radius: 10px;
+    border: 1px solid transparent; /* 대상과의 간격 */
+}
+
+.rank-content::-webkit-scrollbar-thumb:hover {
+    background-color: #bbb; /* 호버 시 색상 */
+}
+
+.rank-content::-webkit-scrollbar-track {
+    background-color: #f9f9f9; /* 연한 색 */
+    border-radius: 10px;
+}
+
 .rank-list {
     display: flex;
     flex-direction: column;
@@ -530,6 +555,15 @@ input:focus {
 .rank-list li .rank-score {
     text-align: right;
     padding-right:20px;
+}
+.rank-list li.empty-rank{
+    text-align: center;
+    padding:70px 0 80px;
+    text-align: center;
+    background:none;
+    text-align:center;
+    display:block;
+    font-weight: 500;
 }
 /* 특정 뷰포트 크기 이상에서는 고정된 크기로 변경 */
 @media (min-width: 390px) {

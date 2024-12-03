@@ -128,7 +128,10 @@
         { nickname: "숨은보물", timer: "10:13:22" },
         { nickname: "에너지파인더", timer: "10:14:22" },
         { nickname: "SK러버", timer: "10:16:22" },
-        { nickname: "파워레인저", timer: "10:18:22" }
+        { nickname: "파워레인저", timer: "10:18:22" },
+        { nickname: "파워레인저", timer: "10:18:22" },
+        { nickname: "파워레인저", timer: "10:18:22" },
+        { nickname: "파워레인저", timer: "10:18:22" },
     ];
     
     document.addEventListener('DOMContentLoaded', () => {
@@ -218,6 +221,15 @@
             // 랭킹 레이어팝업 표시
             openModal('gameRankLayer');
             
+            // 데이터가 없을 경우 메시지 표시
+            if (!mockRankData.length) {
+                const emptyMessage = document.createElement('li');
+                emptyMessage.className = 'empty-rank';
+                emptyMessage.innerHTML = '오늘의 순위가 아직 없습니다';
+                rankList.appendChild(emptyMessage);
+                return;
+            }
+
             // 테스트용 데이터 사용
             mockRankData.forEach((item, index) => {
                 const li = document.createElement('li');
