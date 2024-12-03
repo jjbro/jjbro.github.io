@@ -1,8 +1,8 @@
 (function() {
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(function() {
-            window.scrollTo(0, 1);  // 페이지 상단으로 스크롤해서 주소 입력창을 숨김
-          }, 10);
+            window.scrollTo(0, 1);  // 페이지를 1픽셀 만큼 스크롤해서 주소 입력창을 숨김
+        }, 100);
         // 기본 요소 선택
         const container = document.querySelector('.game-container');
         const background = document.querySelector('.background');
