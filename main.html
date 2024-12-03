@@ -104,7 +104,7 @@
             <button type="button" class="btn-close"><img class="img" src="/images/btn-close.png" alt="닫기"></button>
             <div class="my-rank-content">
                 <p class="my-nickname"></p>
-                <div class="my-rank-wrap"><span class="my-rank"></span> <span class="divider">|</span> <span class="my-time"></span></div>
+                <div class="my-rank-wrap main"><span class="my-rank"></span> <!-- <span class="divider">|</span> --> <span class="my-time"></span></div>
             </div>
             <div class="rank-content">
                 <ul class="rank-list">
@@ -211,7 +211,7 @@
             // 스토리지에 내 정보 존재하면 표시
             if (nickname && ranking && time) {
                 myRankContent.querySelector('.my-nickname').textContent = nickname;
-                myRankContent.querySelector('.my-rank').textContent = formatNumber(ranking) + '위';
+                // myRankContent.querySelector('.my-rank').textContent = formatNumber(ranking) + '위';
                 myRankContent.querySelector('.my-time').textContent = time + '초';
                 myRankContent.classList.add('active');
             }

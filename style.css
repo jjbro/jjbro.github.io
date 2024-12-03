@@ -48,7 +48,11 @@ footer, header, hgroup, menu, nav, section {
     display: block;
 }
 a{ text-decoration: none;}
-body{font-family: 'Pretendard', sans-serif;font-size:14px;}
+body{
+    font-family: 'Pretendard', sans-serif;
+    font-size:14px;
+    background-color:#f8f4ea;
+}
 #page {
     width: min(100vw, 480px);
     margin: 0 auto;
@@ -457,6 +461,9 @@ input:focus {
     align-items: center;
     margin-top:5px;
     gap:12px;
+}
+.my-rank-content .my-rank-wrap.main{
+    gap:0px;
 }
 .my-rank-content .my-nickname {
     font-size: 8vw;
@@ -871,8 +878,8 @@ input:focus {
 
 /* 미니맵 스타일 추가 */
 .minimap {
-    position: absolute;
-    bottom: 20px;
+    position: fixed;
+    bottom: 19vh;
     left: 20px;
     width: 134px;
     height: 74px;
