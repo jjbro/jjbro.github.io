@@ -24,7 +24,7 @@
         <div class="game-container">
             <div class="background">
                 <span class="target item1" data-target="item1" data-text="전기차 배터리 셀(Battery Cell)" data-desc="더 빠르게 충전되고, 더 안전하며, 더 오래 가는<br />'초고속 배터리' 2024 최고 혁신상 수상을 축하합니다."></span>
-                <span class="target item2" data-target="item2" data-text="LNG(천연가스)선" data-desc="국내 최대 민간 LNG 사업자인 SK이노베이션은 개발부터 운송·소비까지 LNG 벨류체인을<br />구축 하였습니다."></span>
+                <!-- <span class="target item2" data-target="item2" data-text="LNG(천연가스)선" data-desc="국내 최대 민간 LNG 사업자인 SK이노베이션은 개발부터 운송·소비까지 LNG 벨류체인을<br />구축 하였습니다."></span>
                 <span class="target item3" data-target="item3" data-text="ZIC" data-desc="글로벌 No.1 윤활기유 ‘유베이스‘<br />개발 및 이를 기반으로 한 고품질<br />엔진오일 ZIC를 생산하고 있습니다."></span>
                 <span class="target item4" data-target="item4" data-text="슈퍼팔트" data-desc="SK에너지는 국내 최초 고품질, 고기능성<br />아스팔트인 ‘슈퍼팔트’를 개발<br />전세계 아스팔트 시장을 선도하고 있습니다."></span>
                 <span class="target item5" data-target="item5" data-text="폴사인" data-desc="62년간 대한민국 에너지 역사와 함께해온 SK이노베이션. 다가올 전동화시대를 위해<br />‘전기 벨류체인’을 구축하고 있습니다."></span>
@@ -32,7 +32,7 @@
                 <span class="target item7" data-target="item7" data-text="SAF" data-desc="SK에너지, 국내 최초 지속가능항공유 전용<br />생산라인을 확보 하였습니다."></span>
                 <span class="target item8" data-target="item8" data-text="EV" data-desc="SK배터리, 아메리카 미국공장 현대차 탑재<br />배터리 양산을 시작합니다."></span>
                 <span class="target item9" data-target="item9" data-text="ESS" data-desc="SK엔무브의 액침냉각 기술을 적용한<br />‘불타지 않는 ESS’를<br />세계최초 개발하였습니다."></span>
-                <span class="target item10" data-target="item10" data-text="아이오딘" data-desc="‘차세대 차량용 냉매 핵심원료’ 아이오딘.<br />안정적 공급망 확보에 힘쓰고 있습니다."></span>
+                <span class="target item10" data-target="item10" data-text="아이오딘" data-desc="‘차세대 차량용 냉매 핵심원료’ 아이오딘.<br />안정적 공급망 확보에 힘쓰고 있습니다."></span> -->
             </div>
             
             <span class="deco-search-count"><img class="img" src="/images/deco-search-count.png" alt="검색 횟수 아이콘"></span>
@@ -253,6 +253,13 @@
 function complete(finalTime) {
     // 메인 상단 반짝이 효과
     startFireworks();
+
+    // 최종 플레이타임 변환
+    const finalMinutes = String(Math.floor(finalTime / 60)).padStart(2, '0');
+    const finalSeconds = String(Math.floor(finalTime % 60)).padStart(2, '0');
+    const finalMilliseconds = String((finalTime % 1).toFixed(2).substring(2)).padStart(2, '0');
+    const changeTime = `${finalMinutes}:${finalSeconds}:${finalMilliseconds}`;
+
     const foundItems = document.querySelectorAll('.target.found').length;
     const totalItems = document.querySelectorAll('.target').length;
     if (foundItems < totalItems) {
@@ -293,36 +300,41 @@ function complete(finalTime) {
             return;
         }
         try {
-            const response = await fetch('https://{DOMAIN}/api/event-proc.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: name,
-                    hphone: phone,
-                    timer: finalTime,
-                    agree1: privacy ? 'Y' : 'N',
-                    agree2: age ? 'Y' : 'N',
-                    ...(nickname && { nickname })
-                })
-            });
-            const result = await response.json();
-            if (!result.result) {
-                if (result.message) {
-                    alert(result.message);
-                } else {
-                    alert('이벤트 참여 중 오류가 발생했습니다.');
-                }
-                return;
-            }
+            // const response = await fetch('https://{DOMAIN}/api/event-proc.php', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({
+            //         name: name,
+            //         hphone: phone,
+            //         timer: changeTime,
+            //         timer2: finalTime,
+            //         agree1: privacy ? 'Y' : 'N',
+            //         agree2: age ? 'Y' : 'N',
+            //         ...(nickname && { nickname })
+            //     })
+            // });
+            // const result = await response.json();
+            // if (!result.result) {
+            //     if (result.message) {
+            //         alert(result.message);
+            //     } else {
+            //         alert('이벤트 참여 중 오류가 발생했습니다.');
+            //     }
+            //     return;
+            // }
             
-            //닉네임이 없는 경우
-            if (!result.nickname) {
-                openNicknameLayer();
-                return;
+            // //닉네임이 없는 경우
+            // if (!result.nickname) {
+            //     openNicknameLayer();
+            //     return;
+            // }
+            const result = {
+                result: true,
+                nickname: '아무개',
+                ranking: '2,333',
             }
-
             //닉네임이 있는 경우 결과 표시
             if (result.ranking) {
                 const resultLayer = document.getElementById('result-layer');
@@ -337,11 +349,11 @@ function complete(finalTime) {
                 //로컬스토리지에 랭킹, 닉네임, 타임 저장
                 localStorage.setItem('ranking', result.ranking);
                 localStorage.setItem('nickname', result.nickname);
-                localStorage.setItem('time', finalTime);
+                localStorage.setItem('time', changeTime);
 
                 //데이터 세팅
                 user.textContent = `${result.nickname}님의`;
-                time.textContent = `${finalTime}`;
+                time.textContent = `${changeTime}`;
                 rank.textContent = `${result.ranking.toLocaleString()}등`;
 
                 // 결과 레이어 표시
@@ -350,7 +362,7 @@ function complete(finalTime) {
 
                 // 오늘의 랭킹 클릭 시 호출되는 팝업에 데이터 추가 셋팅
                 todayNickname.textContent = result.nickname;
-                todayTime.textContent = finalTime;
+                todayTime.textContent = changeTime;
                 todayRank.textContent = result.ranking.toLocaleString();
             }
             
