@@ -118,7 +118,7 @@ input:focus {
 }
 .main-container .main-top{
     position: relative;
-    padding:30px 0;
+    padding:30px 0 10px;
     background: url('/images/bg-t1.jpg') repeat 0 0;
 }
 .main-top .main-title{
@@ -192,6 +192,7 @@ input:focus {
 
 .main-top .notice li{
     font-size:13px;
+    font-weight:500;
 }
 .main-top .notice li *{
     display: inline-block;
@@ -263,7 +264,7 @@ input:focus {
     line-height: 1.3;
     margin-bottom: 5px;
     letter-spacing: -1px;
-    font-weight: 500;
+    font-weight: 700;
 }
 .notice li:before {
     content: '';
