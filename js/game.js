@@ -139,7 +139,7 @@
                 // targetCountry.textContent = target.dataset.country;
                 itemImg.className = 'bg-img';
                 itemImg.classList.add(target.dataset.target);
-                itemDesc.innerHTML = target.dataset.desc;
+                // itemDesc.innerHTML = target.dataset.desc;
                 
                 // 지도 클릭 비활성화
                 background.style.pointerEvents = 'none';
@@ -243,14 +243,14 @@
             currentScale = scale;
             
             // background 크기 업데이트 - width만 변경
-            const newWidth = Math.min(300 * window.innerWidth * scale / 100, 1440 * scale);
+            const newWidth = Math.min(300 * window.innerWidth * scale / 100, 1500 * scale);
             background.style.width = `${newWidth}px`;
             
             // 새로운 위치 계산
             let newX = -(centerX * scale - containerRect.width / 2);
             let newY = -(centerY * scale - containerRect.height / 2);
             
-            // background의 새로운 크기 가져오기
+            // background의 새로운 크기 가져오기background
             const backgroundRect = background.getBoundingClientRect();
             
             // 경계 제한 계산
@@ -416,8 +416,8 @@
         // 파노라마 애니메이션 함수
         function playPanorama() {
             const panoramaDuration = 3000; // 이동 시간
-            const panoramaDistance = -320; // 이동 거리
-
+            const panoramaDistance = window.innerWidth > 480 ? -393 : -320; // 디바이스 너비에 따른 이동 거리 조정
+            
             if (isPanoramaPlaying) return;
             isPanoramaPlaying = true;
 
@@ -541,7 +541,7 @@
                     // 아이템 레이어 업데이트
                     itemImg.className = 'bg-img';
                     itemImg.classList.add(target.dataset.target);
-                    itemDesc.innerHTML = target.dataset.desc;
+                    // itemDesc.innerHTML = target.dataset.desc;
 
                     // 지도 클릭 비활성화
                     background.style.pointerEvents = 'none';

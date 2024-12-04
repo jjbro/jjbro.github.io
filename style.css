@@ -118,7 +118,7 @@ input:focus {
 }
 .main-container .main-top{
     position: relative;
-    padding:30px 0 10px;
+    padding:30px 0 0;
     background: url('/images/bg-t1.jpg') repeat 0 0;
 }
 .main-top .main-title{
@@ -154,7 +154,7 @@ input:focus {
     flex-shrink: 0;
 }
 .main-container .main-cont{
-    margin-top: 30px;
+    margin-top: 27px;
     padding: 0 0 20px;
 }
 .main-cont .main-copy{
@@ -193,6 +193,7 @@ input:focus {
 .main-top .notice li{
     font-size:13px;
     font-weight:500;
+    letter-spacing: -1px;
 }
 .main-top .notice li *{
     display: inline-block;
@@ -209,7 +210,7 @@ input:focus {
 }
 .main-top .gift-img{
     width:60%;
-    margin:5px auto 0;
+    margin:17px auto 0;
 }
 .main-top .gift-sub-text{
     margin:10px 0 0 0;
@@ -263,8 +264,8 @@ input:focus {
     font-size: 12px;
     line-height: 1.3;
     margin-bottom: 5px;
-    letter-spacing: -1px;
-    font-weight: 700;
+    letter-spacing: 0px;
+    font-weight: 600
 }
 .notice li:before {
     content: '';
@@ -275,6 +276,9 @@ input:focus {
     height: 4px;
     background: black;
     transform: rotate(45deg);
+}
+.notice li a{
+    color:#000
 }
 .btn-kakao-share{
     display:block;
@@ -930,9 +934,9 @@ input:focus {
 }
 #itemLayer .bg-img{
     display:block;
-    width: 80%;
+    width: 83.5%;
     margin:20% auto 0;
-    aspect-ratio: 720 / 578;
+    aspect-ratio: 756 / 820;
 }
 #itemLayer .bg-img.item1{
     background: url('/images/item-pop1.png') no-repeat 0 0;
@@ -1249,18 +1253,18 @@ input:focus {
     text-align: center;
 }
 .complete-form .complete-notice{
-    margin-top:10px;
+    margin-top:15px;
 }
 .complete-form .complete-notice li{
     font-size:12px;
-    line-height:1.2;
-    margin-bottom:5px;
+    line-height:1.3;
+    margin-bottom:8px;
     padding-left: 9px;
     text-indent: -9px;
 }
 .complete-form .complete-agree-tit{
     font-weight: 700;
-    margin-top:15px;
+    margin-top:20px;
     position: relative;
     padding-left: 10px;
 }
@@ -1289,8 +1293,9 @@ input:focus {
     background: #efefef;
     font-size:12px;
     word-break: keep-all;
-    height: 62px;
+    height: 75px;
     overflow-y: auto;
+    line-height:1.5;
 }
 .complete-form .complete-checkbox{
     margin-top:10px;
@@ -1398,10 +1403,9 @@ input:focus {
     text-align: center;
 }
 .nickname-content .nickname-desc{
-    text-align: right;
+    text-align: center;
     font-size:12px;
-    width:90%;
-    margin-left:5%;
+    width:100%;
 }
 .nickname-content .nickname-error{
     display: flex;
@@ -1411,6 +1415,7 @@ input:focus {
     display: none;
     color:#f00;
     font-size:12px;
+    font-weight: 500;
 }
 .nickname-content .nickname-error:before{
     content: '';
