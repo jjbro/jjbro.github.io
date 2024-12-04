@@ -646,8 +646,10 @@ input:focus {
 }
 .guide-wrap .guide-map{
     width:90%;
-    aspect-ratio: 1261 / 955;
+    border:2px solid #000;
+    overflow: hidden;
     margin:12px auto 0;
+    aspect-ratio: 1004 / 654;
 }
 .guide-wrap .cursor {
     visibility: hidden;
@@ -657,9 +659,9 @@ input:focus {
     top: 57%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation: cursorMoveToCenter 1s ease-in-out 1s forwards;
+    animation: cursorMoveToZoomIn 1s ease-in-out 1s forwards;
 }
-
+.pointer{cursor: pointer;}
 .guide-wrap .mark {
     visibility: hidden;
     position: absolute;
@@ -669,7 +671,53 @@ input:focus {
     left: 48%;
     transform: translate(-50%, -50%);
 }
-
+.guide-wrap .zoom-in{
+    position:absolute;
+    width:10%;
+    right:12%;
+    top:40%;
+}
+.guide-wrap .zoom-out{
+    position:absolute;
+    width:10%;
+    right:12%;
+    top:53%;
+}
+@keyframes cursorMoveToZoomIn {
+    0% {
+        transform: translate(100%, 100%);
+    }
+    20% {
+        transform: translate(197%, -80%);
+    }
+    25% {
+        transform: scale(1) translate(197%, -80%);
+    }
+    30% {
+        transform: scale(0.9) translate(210%, -90%);
+    }
+    35% {
+        transform: scale(1) translate(197%, -80%);
+    }
+    50% {
+        transform: scale(1) translate(197%, -80%);
+    }
+    70%{
+        transform: translate(0%, 0%);
+    }
+    75% {
+        transform: scale(1) translate(0%, 0%);
+    }
+    80% {
+        transform: scale(0.8) translate(0%, 0%);
+    }
+    85% {
+        transform: scale(1) translate(0%, 0%);
+    }
+    100%{
+        transform: translate(0%, 0%);
+    }
+}
 @keyframes cursorMoveToCenter {
     0% {
         transform: translate(100%, 100%);
@@ -688,6 +736,22 @@ input:focus {
     }
     100% {
         transform: scale(1);
+    }
+}
+@keyframes mapZoomIn {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.5);
+    }
+}
+@keyframes mapZoomOut {
+    0% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1.5);
     }
 }
 

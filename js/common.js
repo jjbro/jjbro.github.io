@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
         btnGameRule.addEventListener('click', function() {
             openModal('gameRuleLayer');
             // 가이드 모션 실행
+            const map = document.querySelector('.guide-map img');
             const cursor = document.querySelector('.cursor');
             const mark = document.querySelector('.mark');
 
@@ -12,20 +13,32 @@ document.addEventListener('DOMContentLoaded', function() {
             if(mark.style.visibility === 'visible') {
                 return false;
             }
-
             setTimeout(() => {
-                cursor.style.animation = 'cursorMoveToCenter 1s ease-in-out 1s forwards';
+                cursor.style.animation = 'cursorMoveToZoomIn 4s ease-in-out 1s forwards';
                 cursor.style.visibility = 'visible';
             }, 1000);
             setTimeout(() => {
-                cursor.style.animation = 'cursorClick 0.5s ease-in-out forwards';
-            }, 2000);
+                map.style.animation = 'mapZoomIn 1s ease-in-out 1s forwards';
+            }, 1500);
+            // setTimeout(() => {
+            //     cursor.style.animation = 'cursorClick 0.5s ease-in-out forwards';
+            // }, 2000);
+            // setTimeout(() => {
+            //     map.style.animation = 'mapZoomIn 1s ease-in-out forwards';
+            // }, 2500);
+            // setTimeout(() => {
+            //     cursor.style.animation = 'cursorMoveToCenter 1s ease-in-out 1s forwards';
+            // }, 3500);
+            // setTimeout(() => {
+            //     cursor.style.animation = 'cursorClick 0.5s ease-in-out forwards';
+            // }, 4500);
 
             setTimeout(() => {
                 cursor.style.visibility = 'hidden';
                 mark.style.visibility = 'visible';
                 mark.style.animation = 'markCheck 0.3s ease-in-out forwards';
-            }, 2500);
+                map.style.animation = 'mapZoomOut 1s ease-in-out forwards';
+            }, 5000);
         });
     }
 
