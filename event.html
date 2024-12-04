@@ -183,18 +183,18 @@
 </div>
 
 <!-- 닉네임 레이어 -->
-<div id="nickname-layer" class="nickname-layer">
+<div id="nickname-layer" class="nickname-layer active">
     <div class="nickname-content">
         <p class="title-nickname"><img class="img" src="/images/title-nickname.png" alt="랭킹에 노출 될 닉네임을 입력해주세요"></p>
         <input type="text" id="nicknameInput" placeholder="결과랭킹에 노출됩니다">
         <p class="nickname-desc">※ 닉네임은 추후 변경이 불가합니다.</p>
         <p class="nickname-error">이미 사용중인 닉네임 입니다. 다른 닉네임을 입력해주세요!</p>
-        <button id="submitNickname"><img class="img" src="/images/btn-confirm.png" alt="확인"></button>
+        <button id="submitNickname" class="pointer"><img class="img" src="/images/btn-confirm.png" alt="확인"></button>
     </div>
 </div>
 
 <!-- 결과보기 레이어 -->
-<div id="result-layer" class="result-layer">
+<div id="result-layer" class="result-layer active">
     <div id="fireworksContainer2"></div>
     <div class="result-content">
         <a href="/main.html" class="btn-home"><img class="img" src="/images/btn-home.png" alt="홈으로"></a>
@@ -205,10 +205,10 @@
             <p class="rank-text"><span class="rank"></span></p>
             <p class="time"></p>
             
-            <button class="btn-game-rank btn-style-black bold" type="button">오늘의 랭킹 확인</button>
+            <button class="btn-game-rank btn-style-black bold pointer" type="button">오늘의 랭킹 확인</button>
         </div>
         <div class="result-bottom">
-            <button id="kakao-share-btn" class="btn-kakao-share"><img class="img" src="/images/btn-kakao2.png" alt="카카오톡 공유하기" /></button>
+            <button id="kakao-share-btn" class="btn-kakao-share pointer"><img class="img" src="/images/btn-kakao2.png" alt="카카오톡 공유하기" /></button>
             <a href="/event.html" class="btn-again"><img class="img" src="/images/btn-again.png" alt="다시도전"></a>
         </div>
     </div>
@@ -219,7 +219,7 @@
     <div class="dimm"></div>
     <div class="content">
         <div class="content-inner">
-            <button type="button" class="btn-close"><img class="img" src="/images/btn-close.png" alt="닫기"></button>
+            <button type="button" class="btn-close pointer"><img class="img" src="/images/btn-close.png" alt="닫기"></button>
             <div class="my-rank-content">
                 <p class="my-nickname"></p>
                 <div class="my-rank-wrap"><span class="my-rank"></span> <span class="divider">|</span> <span class="my-time"></span></div>
@@ -237,7 +237,7 @@
 <div id="itemLayer" class="layer-popup">
     <div class="dimm"></div>
     <div class="content">
-        <button type="button" class="btn-close"><img class="img" src="/images/btn-layer-close.png" alt="닫기"></button>
+        <button type="button" class="btn-close pointer"><img class="img" src="/images/btn-layer-close.png" alt="닫기"></button>
         <div class="bg-img"></div>
         <!-- <p><span class="item-title"></span></p> -->
         <p class="item-desc"></p>

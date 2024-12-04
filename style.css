@@ -1085,6 +1085,7 @@ input:focus {
     transition: all 0.3s ease;
     max-width: 20%;
     position: relative;
+    cursor: pointer;
 }
 
 .item-img-yellow {
